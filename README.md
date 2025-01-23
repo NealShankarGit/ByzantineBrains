@@ -18,7 +18,7 @@ TBD
 
 ## Team
 - **Neal Shankar** - Project Manager / Developer  
-- **Tyler Wescott** - Role TBD  
+- **Tyler Wescott** - System Architect / Developer  
 
 ## Advisor
 - **Dr. Emmanuel Dorley**  
