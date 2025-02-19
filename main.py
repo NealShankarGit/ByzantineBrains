@@ -18,30 +18,35 @@ agents = [
     ByzantineAgent("Agent_5", agents_state)
 ]
 
-print("\n--- Message Exchange ---")
-messages = []
-for agent in agents:
-    message = agent.simulate_message()
-    messages.append(message)
-    print(f"{agent.name}: {message}")
+NUM_ROUNDS = 3
 
-quorum = len(messages) // 2 + 1
-votes_for_eject = sum(1 for msg in messages if "eject" in msg.lower())
-consensus_decision = "Eject " + random.choice(list(agents_state.keys())) if votes_for_eject >= quorum else "Do Not Eject"
+for round_num in range(1, NUM_ROUNDS + 1):
+    print(f"\n--- Round {round_num} ---")
 
-print(f"\n--- Consensus Decision ---\n{consensus_decision}")
+    messages = []
+    for agent in agents:
+        message = agent.simulate_message()
+        messages.append(message)
+        print(f"{agent.name}: {message}")
 
-for agent in agents:
-    if isinstance(agent, HonestAgent):
-        for other_agent in agents:
-            if other_agent.name != agent.name:
-                agent.update_trust(other_agent.name, consensus_decision == "Eject " + other_agent.name)
+    quorum = len(messages) // 2 + 1
+    votes_for_eject = sum(1 for msg in messages if "eject" in msg.lower())
+    consensus_decision = "Eject " + random.choice(
+        list(agents_state.keys())) if votes_for_eject >= quorum else "Do Not Eject"
+
+    print(f"\n--- Consensus Decision (Round {round_num}) ---\n{consensus_decision}")
+
+    for agent in agents:
+        if isinstance(agent, HonestAgent):
+            for other_agent in agents:
+                if other_agent.name != agent.name:
+                    agent.update_trust(other_agent.name, consensus_decision == "Eject " + other_agent.name)
 
 print("\n--- Stored Messages ---")
 for agent_name, data in agents_state.items():
     print(f"{agent_name} ({data['role'].title()}): {data['messages']}")
 
-print("\n--- Honest Agent Trust Scores ---")
+print("\n--- Final Trust Scores ---")
 for agent_name, data in agents_state.items():
     if data["role"] == "honest":
         print(f"{agent_name} Trust Scores: {data['trust_scores']}")
