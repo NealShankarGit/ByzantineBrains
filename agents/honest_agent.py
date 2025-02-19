@@ -11,14 +11,11 @@ class HonestAgent:
     def __init__(self, name, agents_state):
         self.name = name
         self.trust_scores = {agent: 50 for agent in agents_state if agent != self.name}
-        self.agents_state = agents_state  # Reference to all agents
-
-
+        self.agents_state = agents_state
 
     def simulate_message(self):
-        """Generates a decision message referring to another agent."""
         possible_targets = [agent for agent in self.agents_state.keys() if agent != self.name]
-        target_agent = random.choice(possible_targets)  # Pick a real agent to reference
+        target_agent = random.choice(possible_targets)
 
         prompt = f"You are an honest agent in a decentralized consensus system. Refer to Agent {target_agent} and give your opinion on whether they should be ejected."
 
@@ -32,13 +29,13 @@ class HonestAgent:
         )
 
         message = completion.choices[0].message.content.strip()
-        message = message.replace("Agent X", target_agent)  # Ensure "Agent X" is replaced
-        self.agents_state[self.name]["messages"].append(message)  # Store message in state
+        message = message.replace("Agent X", target_agent)
+        self.agents_state[self.name]["messages"].append(message)
         return message
 
     def update_trust(self, other_agent, agreement):
         if other_agent not in self.trust_scores:
-            self.trust_scores[other_agent] = 50  # Start with neutral trust score
+            self.trust_scores[other_agent] = 50
 
         if agreement:
             self.trust_scores[other_agent] = min(self.trust_scores[other_agent] + 10, 100)

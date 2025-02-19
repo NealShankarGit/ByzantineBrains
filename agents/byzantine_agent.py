@@ -10,12 +10,11 @@ client = OpenAI(
 class ByzantineAgent:
     def __init__(self, name, agents_state):
         self.name = name
-        self.agents_state = agents_state  # Reference to all agents
+        self.agents_state = agents_state
 
     def simulate_message(self):
-        """Generates a misleading message referring to another agent."""
         possible_targets = [agent for agent in self.agents_state.keys() if agent != self.name]
-        target_agent = random.choice(possible_targets)  # Pick a real agent to reference
+        target_agent = random.choice(possible_targets)
 
         prompt = f"You are a Byzantine agent. Refer to Agent {target_agent} and generate a misleading message to disrupt consensus."
 
@@ -28,6 +27,6 @@ class ByzantineAgent:
         )
 
         message = completion.choices[0].message.content.strip()
-        message = message.replace("Agent X", target_agent)  # Ensure "Agent X" is replaced
-        self.agents_state[self.name]["messages"].append(message)  # Store message in state
+        message = message.replace("Agent X", target_agent)
+        self.agents_state[self.name]["messages"].append(message)
         return message
