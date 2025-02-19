@@ -1,29 +1,33 @@
-from openai import OpenAI
 import os
 import random
+from openai import OpenAI
 
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
+
 class ByzantineAgent:
-    def __init__(self, name):
+    def __init__(self, name, agents_state):
         self.name = name
+        self.agents_state = agents_state  # Reference to all agents
 
     def simulate_message(self):
-        behaviors = [
-            "You are a malicious agent. Generate a misleading message to disrupt consensus.",
-            "You are a Byzantine agent. Generate a random, conflicting message about whether Agent X should be ejected."
-        ]
-        prompt = random.choice(behaviors)
-        completion = client.chat.completions.create(
-            model="gpt-4",  # More models will be used in future
-            messages=[{"role": "system", "content": "Generate short, disruptive messages."},
-                      {"role": "user", "content": prompt}],
-            max_tokens=50,
-            temperature=1.0
-        )
-        return completion.choices[0].message.content.strip()
+        """Generates a misleading message referring to another agent."""
+        possible_targets = [agent for agent in self.agents_state.keys() if agent != self.name]
+        target_agent = random.choice(possible_targets)  # Pick a real agent to reference
 
-    def __str__(self):
-        return f"{self.name} (Byzantine)"
+        prompt = f"You are a Byzantine agent. Refer to Agent {target_agent} and generate a misleading message to disrupt consensus."
+
+        completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "Generate short, misleading messages that mention real agents by name."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        message = completion.choices[0].message.content.strip()
+        message = message.replace("Agent X", target_agent)  # Ensure "Agent X" is replaced
+        self.agents_state[self.name]["messages"].append(message)  # Store message in state
+        return message
