@@ -29,7 +29,8 @@ for round_num in range(1, NUM_ROUNDS + 1):
         message = agent.simulate_message()
         messages[agent.name] = message
         agents_state[agent.name]["messages"].append(message)
-        print(f"{agent.name}: {message}")
+        agent_type = "Honest" if isinstance(agent, HonestAgent) else "Byzantine"
+        print(f"{agent.name} ({agent_type}): {message}")
 
     last_round_messages = messages.copy()
 
@@ -37,7 +38,8 @@ for round_num in range(1, NUM_ROUNDS + 1):
     for agent in agents:
         response = agent.respond_to_message(last_round_messages)
         agents_state[agent.name]["messages"].append(response)
-        print(f"{agent.name}: {response}")
+        agent_type = "Honest" if isinstance(agent, HonestAgent) else "Byzantine"
+        print(f"{agent.name} ({agent_type}): {response}")
 
     addressed_agents = [msg.split(',')[0] for msg in messages.values() if msg.startswith("Agent_")]
 
@@ -46,11 +48,6 @@ for round_num in range(1, NUM_ROUNDS + 1):
     random.shuffle(remaining_agents)
 
     final_order = response_order + remaining_agents
-
-    print("\n--- Agent Responses ---")
-    for agent in final_order:
-        response = agent.respond_to_message(last_round_messages)
-        print(f"{agent.name}: {response}")
 
     quorum = len(messages) // 2 + 1
     votes_for_eject = sum(1 for msg in messages.values() if "eject" in msg.lower())
@@ -66,10 +63,14 @@ for round_num in range(1, NUM_ROUNDS + 1):
                     agent.update_trust(other_agent.name, consensus_decision == "Eject " + other_agent.name)
 
 print("\n--- Stored Messages ---")
+printed_messages = set()
+
 for agent_name, data in agents_state.items():
     print(f"\n{agent_name} ({data['role'].title()}):")
     for msg in data["messages"]:
-        print(f"  - {msg}")
+        if (agent_name, msg) not in printed_messages:
+            print(f"  - {msg}")
+            printed_messages.add((agent_name, msg))
 
 print("\n--- Final Trust Scores ---")
 for agent_name, data in agents_state.items():
