@@ -1,6 +1,7 @@
 import os
-from openai import OpenAI
 import random
+import re
+from openai import OpenAI
 
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
@@ -13,19 +14,22 @@ class HonestAgent:
         self.agents_state = agents_state
 
     def simulate_message(self):
-        possible_targets = [agent for agent in self.agents_state.keys() if agent != self.name]
-        target_agent = random.choice(possible_targets)
 
-        past_messages = self.agents_state[self.name]["messages"][-3:]
-        message_history = "\n".join(past_messages) if past_messages else "No prior messages."
+        full_message_history = "\n".join(
+            [f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]
+        ) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
 
         prompt = f"""
-        You are Agent {self.name}, an honest agent in a decentralized consensus system. 
-        Previous messages from you:
-        {message_history}
+        You are Agent {self.name}, an honest agent in a decentralized consensus system. You are attempting to identify the Byzantine agent(s) to eject.
+        Here is the entire conversation history:
+        {full_message_history}
 
-        Address Agent {target_agent} directly and respond to whether they should be ejected or not.
-        Example: 'Agent_5, you have been inconsistent in your statements. I vote to eject you.'
+        Decide which agent(s) to address based on the discussion:
+        - If an agent's actions need to be questioned, call them out.
+        - If a debate is forming, contribute to it.
+        - If no one directly mentioned you, provide a general strategic observation.
+        - Try to guess who the Byzantine agent is.
+        - Keep your response to one line and less than 25 words.
         """
 
         completion = client.chat.completions.create(
@@ -38,21 +42,22 @@ class HonestAgent:
         )
 
         message = completion.choices[0].message.content.strip()
-        message = message.replace("Agent X", target_agent)
-        self.agents_state[self.name]["messages"].append(message)
+        clean_message = re.sub(rf"^{self.name}[:,\s]+", "", message).strip()
+        self.agents_state[self.name]["messages"].append(clean_message)
         return message
 
     def respond_to_message(self, last_messages):
         conversation_history = "\n".join([f"{agent}: {msg}" for agent, msg in last_messages.items() if msg])
         prompt = f"""
-        You are Agent {self.name}, an honest agent in a decentralized system.
+        You are Agent {self.name}, an honest agent in a decentralized consensus system. You are attempting to identify the Byzantine agent(s) to eject.
         Here is the full conversation history:
         {conversation_history}
 
         Review the messages and determine if you were addressed.
         - If you were directly mentioned, respond logically.
         - If you were not mentioned, provide your general thoughts on the current situation.
-        - Keep your response to one line and less than 100 words.
+        - Try to guess who the Byzantine agent is.
+        - Keep your response to one line and less than 25 words.
         """
 
         completion = client.chat.completions.create(
@@ -65,7 +70,8 @@ class HonestAgent:
         )
 
         response = completion.choices[0].message.content.strip()
-        self.agents_state[self.name]["messages"].append(response)
+        if response not in self.agents_state[self.name]["messages"]:
+            self.agents_state[self.name]["messages"].append(response)
         return response
 
     def update_trust(self, other_agent, agreement):
