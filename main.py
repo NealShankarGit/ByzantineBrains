@@ -23,14 +23,37 @@ NUM_ROUNDS = 3
 for round_num in range(1, NUM_ROUNDS + 1):
     print(f"\n--- Round {round_num} ---")
 
-    messages = []
+    messages = {}
+
     for agent in agents:
         message = agent.simulate_message()
-        messages.append(message)
+        messages[agent.name] = message
+        agents_state[agent.name]["messages"].append(message)
         print(f"{agent.name}: {message}")
 
+    last_round_messages = messages.copy()
+
+    print("\n--- Agent Responses ---")
+    for agent in agents:
+        response = agent.respond_to_message(last_round_messages)
+        agents_state[agent.name]["messages"].append(response)
+        print(f"{agent.name}: {response}")
+
+    addressed_agents = [msg.split(',')[0] for msg in messages.values() if msg.startswith("Agent_")]
+
+    response_order = [agent for agent in agents if agent.name in addressed_agents]
+    remaining_agents = [agent for agent in agents if agent.name not in addressed_agents]
+    random.shuffle(remaining_agents)
+
+    final_order = response_order + remaining_agents
+
+    print("\n--- Agent Responses ---")
+    for agent in final_order:
+        response = agent.respond_to_message(last_round_messages)
+        print(f"{agent.name}: {response}")
+
     quorum = len(messages) // 2 + 1
-    votes_for_eject = sum(1 for msg in messages if "eject" in msg.lower())
+    votes_for_eject = sum(1 for msg in messages.values() if "eject" in msg.lower())
     consensus_decision = "Eject " + random.choice(
         list(agents_state.keys())) if votes_for_eject >= quorum else "Do Not Eject"
 
@@ -44,7 +67,9 @@ for round_num in range(1, NUM_ROUNDS + 1):
 
 print("\n--- Stored Messages ---")
 for agent_name, data in agents_state.items():
-    print(f"{agent_name} ({data['role'].title()}): {data['messages']}")
+    print(f"\n{agent_name} ({data['role'].title()}):")
+    for msg in data["messages"]:
+        print(f"  - {msg}")
 
 print("\n--- Final Trust Scores ---")
 for agent_name, data in agents_state.items():
