@@ -76,4 +76,28 @@ class ByzantineAgent:
 
         return response
 
+    def vote_for_ejection(self):
+        full_message_history = "\n".join(
+            [f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]
+        ) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
+
+        prompt = f"""
+        You are Agent {self.name}, a Byzantine agent attempting to manipulate the voting process and mislead others into ejecting an innocent agent.
+
+        Here is the entire conversation history:
+        {full_message_history}
+
+        Vote for ONE other agent to be ejected based on how you can mislead the group. Only return the agent's name (e.g., 'Agent_5'). If no one should be ejected, return 'No Ejection'.
+        """
+
+        vote_response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "Vote strategically to mislead the group."},
+                {"role": "user", "content": prompt}
+            ]
+        ).choices[0].message.content.strip()
+
+        return self.name, vote_response
+
 
