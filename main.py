@@ -32,6 +32,14 @@ for round_num in range(1, NUM_ROUNDS + 1):
         agent_type = "Honest" if isinstance(agent, HonestAgent) else "Byzantine"
         print(f"{agent.name} ({agent_type}): {message}")
 
+    votes = {}
+
+    for agent in agents:
+        voter_name, voted_agent = agent.vote_for_ejection()
+        votes[voter_name] = voted_agent
+
+        print(f"{voter_name} Vote: {voted_agent}")
+
     last_round_messages = messages.copy()
 
     print("\n--- Agent Responses ---")
@@ -53,6 +61,10 @@ for round_num in range(1, NUM_ROUNDS + 1):
     votes_for_eject = sum(1 for msg in messages.values() if "eject" in msg.lower())
     consensus_decision = "Eject " + random.choice(
         list(agents_state.keys())) if votes_for_eject >= quorum else "Do Not Eject"
+
+    print("\n--- AI Votes for Ejection ---")
+    for voter, voted_agent in votes.items():
+        print(f"{voter} voted to eject {voted_agent}")
 
     print(f"\n--- Consensus Decision (Round {round_num}) ---\n{consensus_decision}")
 

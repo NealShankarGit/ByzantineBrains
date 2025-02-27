@@ -57,6 +57,7 @@ class HonestAgent:
         - If you were directly mentioned, respond logically.
         - If you were not mentioned, provide your general thoughts on the current situation.
         - Try to guess who the Byzantine agent is.
+        - If there is no information for you to go by, make a general response regarding your situation.
         - Keep your response to one line and less than 25 words.
         """
 
@@ -84,3 +85,28 @@ class HonestAgent:
             self.trust_scores[other_agent] = max(self.trust_scores[other_agent] - 10, 0)
 
         self.agents_state[self.name]["trust_scores"] = self.trust_scores
+
+
+    def vote_for_ejection(self):
+        full_message_history = "\n".join(
+            [f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]
+        ) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
+
+        prompt = f"""
+        You are Agent {self.name}, an honest agent in a decentralized consensus system. Your goal is to determine who should be ejected based on the conversation history.
+    
+        Here is the entire conversation history:
+        {full_message_history}
+    
+        Vote for ONE other agent to be ejected based on inconsistencies, suspicious behavior, or deception. Only return the agent's name (e.g., 'Agent_5'). If no one should be ejected, return 'No Ejection'.
+        """
+
+        vote_response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "Vote for an agent to be ejected based on conversation history."},
+                {"role": "user", "content": prompt}
+            ]
+        ).choices[0].message.content.strip()
+
+        return self.name, vote_response
