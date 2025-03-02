@@ -1,12 +1,16 @@
 import os
 import random
 import re
-from langchain_openai import ChatOpenAI
+import litellm
 from langchain.schema import SystemMessage, HumanMessage
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
-llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7, openai_api_key=os.getenv("OPENAI_API_KEY"))
+llm = lambda prompt: litellm.completion(
+    model="gpt-4o",
+    messages=[{"role": "user", "content": str(prompt)}],
+    temperature=0.7
+)
 
 from langchain.schema.runnable import RunnableSequence
 from langchain.prompts import PromptTemplate
@@ -40,7 +44,7 @@ class ByzantineAgent:
         ) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
 
         response = self.chain.invoke({"name": self.name, "history": full_message_history})
-        message = response.content.strip()
+        message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)
         return message
 
@@ -63,7 +67,7 @@ class ByzantineAgent:
             HumanMessage(content=prompt)
         ]
 
-        response = llm.invoke(messages).content.strip()
+        response = llm(prompt)["choices"][0]["message"]["content"].strip()
 
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
@@ -89,6 +93,6 @@ class ByzantineAgent:
             HumanMessage(content=prompt)
         ]
 
-        vote_response = llm.invoke(messages).content.strip()
+        vote_response = llm(prompt)["choices"][0]["message"]["content"].strip()
 
         return self.name, vote_response
