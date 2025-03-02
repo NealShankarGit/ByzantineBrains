@@ -1,11 +1,10 @@
 import os
 import random
 import re
-from openai import OpenAI
+from langchain_openai import ChatOpenAI
+from langchain.schema import SystemMessage, HumanMessage
 
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
-)
+llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7, openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 class HonestAgent:
     def __init__(self, name, agents_state):
@@ -32,16 +31,14 @@ class HonestAgent:
         - Keep your response to one line and less than 25 words.
         """
 
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system",
-                 "content": "You generate short, clear decision messages addressing other agents by name."},
-                {"role": "user", "content": prompt}
-            ]
-        )
+        messages = [
+            SystemMessage(content="You generate short, clear decision messages addressing other agents by name."),
+            HumanMessage(content=prompt)
+        ]
 
-        message = completion.choices[0].message.content.strip()
+        response = llm.invoke(messages)
+        message = response.content.strip()
+
         clean_message = re.sub(rf"^{self.name}[:,\s]+", "", message).strip()
         self.agents_state[self.name]["messages"].append(clean_message)
         return message
@@ -61,16 +58,14 @@ class HonestAgent:
         - Keep your response to one line and less than 25 words.
         """
 
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system",
-                 "content": "You generate concise responses, responding directly if mentioned, or giving general thoughts if not."},
-                {"role": "user", "content": prompt}
-            ]
-        )
+        messages = [
+            SystemMessage(
+                content="You generate concise responses, responding directly if mentioned, or giving general thoughts if not."),
+            HumanMessage(content=prompt)
+        ]
 
-        response = completion.choices[0].message.content.strip()
+        response = llm.invoke(messages).content.strip()
+
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
         return response
@@ -101,12 +96,11 @@ class HonestAgent:
         Vote for ONE other agent to be ejected based on inconsistencies, suspicious behavior, or deception. Only return the agent's name (e.g., 'Agent_5'). If no one should be ejected, return 'No Ejection'.
         """
 
-        vote_response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "Vote for an agent to be ejected based on conversation history."},
-                {"role": "user", "content": prompt}
-            ]
-        ).choices[0].message.content.strip()
+        messages = [
+            SystemMessage(content="Vote for an agent to be ejected based on conversation history."),
+            HumanMessage(content=prompt)
+        ]
+
+        vote_response = llm.invoke(messages).content.strip()
 
         return self.name, vote_response
