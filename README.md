@@ -10,11 +10,17 @@ The Byzantine Brains project explores fault-tolerant consensus-building in distr
 
 ## Technologies
 - **Languages**: Python (or TBD)  
-- **Frameworks**: Multi-agent frameworks (TBD)
+- **Frameworks**: LangChain, LiteLLM
 
 ## Project Structure
-TBD
+/agents
+    honest_agent.py      # Implementation of an honest agent using LLMs
+    byzantine_agent.py   # Implementation of a Byzantine agent using LLMs
 
+/consensus
+    consensus_module.py  # Logic for reaching consensus in the system
+
+main.py                 # Main script orchestrating the consensus process
 
 ## Team
 - **Neal Shankar** - Project Manager / Developer  
