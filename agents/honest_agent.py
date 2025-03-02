@@ -3,6 +3,8 @@ import random
 import re
 from langchain_openai import ChatOpenAI
 from langchain.schema import SystemMessage, HumanMessage
+from langchain.schema.runnable import RunnableSequence
+from langchain.prompts import PromptTemplate
 
 llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7, openai_api_key=os.getenv("OPENAI_API_KEY"))
 
@@ -12,37 +14,34 @@ class HonestAgent:
         self.trust_scores = {agent: 50 for agent in agents_state if agent != self.name}
         self.agents_state = agents_state
 
-    def simulate_message(self):
+        self.chain = (
+            PromptTemplate(
+                input_variables=["name", "history"],
+                template="""
+                You are Agent {name}, an honest agent in a decentralized consensus system. Your goal is to identify the Byzantine agent(s) to eject.
+                Here is the conversation history:
+                {history}
 
+                Choose how to contribute:
+                - If an agent seems suspicious, call them out.
+                - If a debate is forming, provide your perspective.
+                - If no one mentioned you, share a strategic observation.
+                - Try to determine who the Byzantine agent is.
+                - Keep your response to one line and under 25 words.
+                """
+            )
+            | llm
+        )
+
+    def simulate_message(self):
         full_message_history = "\n".join(
             [f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]
         ) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
 
-        prompt = f"""
-        You are Agent {self.name}, an honest agent in a decentralized consensus system. You are attempting to identify the Byzantine agent(s) to eject.
-        Here is the entire conversation history:
-        {full_message_history}
-
-        Decide which agent(s) to address based on the discussion:
-        - If an agent's actions need to be questioned, call them out.
-        - If a debate is forming, contribute to it.
-        - If no one directly mentioned you, provide a general strategic observation.
-        - Try to guess who the Byzantine agent is.
-        - Keep your response to one line and less than 25 words.
-        """
-
-        messages = [
-            SystemMessage(content="You generate short, clear decision messages addressing other agents by name."),
-            HumanMessage(content=prompt)
-        ]
-
-        response = llm.invoke(messages)
+        response = self.chain.invoke({"name": self.name, "history": full_message_history})
         message = response.content.strip()
-
-        clean_message = re.sub(rf"^{self.name}[:,\s]+", "", message).strip()
-        self.agents_state[self.name]["messages"].append(clean_message)
+        self.agents_state[self.name]["messages"].append(message)
         return message
-
     def respond_to_message(self, last_messages):
         conversation_history = "\n".join([f"{agent}: {msg}" for agent, msg in last_messages.items() if msg])
         prompt = f"""
