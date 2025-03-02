@@ -1,11 +1,10 @@
 import os
 import random
 import re
-from openai import OpenAI
+from langchain_openai import ChatOpenAI
+from langchain.schema import SystemMessage, HumanMessage
 
-client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
-)
+llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.7, openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 class ByzantineAgent:
     def __init__(self, name, agents_state):
@@ -13,7 +12,6 @@ class ByzantineAgent:
         self.agents_state = agents_state
 
     def simulate_message(self):
-
         full_message_history = "\n".join(
             [f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]
         ) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
@@ -31,19 +29,14 @@ class ByzantineAgent:
         - Keep your response to one line and less than 25 words.
         """
 
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "Generate deceptive messages that address specific agents by name."},
-                {"role": "user", "content": prompt}
-            ]
-        )
+        messages = [
+            SystemMessage(content="Generate deceptive messages that address specific agents by name."),
+            HumanMessage(content=prompt)
+        ]
 
-        message = completion.choices[0].message.content.strip()
+        response = llm.invoke(messages)
 
-        if message.startswith(f"{self.name}:"):
-            message = message[len(self.name) + 1:].strip()
-
+        message = response.content.strip()
         self.agents_state[self.name]["messages"].append(message)
         return message
 
@@ -61,16 +54,13 @@ class ByzantineAgent:
         - Keep your response to one line and less than 25 words.
         """
 
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system",
-                 "content": "Generate misleading responses that either directly address prior messages or introduce confusion."},
-                {"role": "user", "content": prompt}
-            ]
-        )
+        messages = [
+            SystemMessage(content="Generate misleading responses that either directly address prior messages or introduce confusion."),
+            HumanMessage(content=prompt)
+        ]
 
-        response = completion.choices[0].message.content.strip()
+        response = llm.invoke(messages).content.strip()
+
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
 
@@ -90,14 +80,11 @@ class ByzantineAgent:
         Vote for ONE other agent to be ejected based on how you can mislead the group. Only return the agent's name (e.g., 'Agent_5'). If no one should be ejected, return 'No Ejection'.
         """
 
-        vote_response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "Vote strategically to mislead the group."},
-                {"role": "user", "content": prompt}
-            ]
-        ).choices[0].message.content.strip()
+        messages = [
+            SystemMessage(content="Vote strategically to mislead the group."),
+            HumanMessage(content=prompt)
+        ]
+
+        vote_response = llm.invoke(messages).content.strip()
 
         return self.name, vote_response
-
-
