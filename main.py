@@ -22,69 +22,54 @@ NUM_ROUNDS = 3
 
 for round_num in range(1, NUM_ROUNDS + 1):
     print(f"\n--- Round {round_num} ---")
-
     messages = {}
-
     for agent in agents:
         message = agent.simulate_message()
         messages[agent.name] = message
-        agents_state[agent.name]["messages"].append(message)
-        agent_type = "Honest" if isinstance(agent, HonestAgent) else "Byzantine"
-        print(f"{agent.name} ({agent_type}): {message}")
-
+        print(f"{agent.name} ({'Honest' if agent.__class__.__name__=='HonestAgent' else 'Byzantine'}): {message}")
     votes = {}
-
     for agent in agents:
-        voter_name, voted_agent = agent.vote_for_ejection()
-        votes[voter_name] = voted_agent
-
-        print(f"{voter_name} Vote: {voted_agent}")
-
-    last_round_messages = messages.copy()
-
+        voter, vote = agent.vote_for_ejection()
+        votes[voter] = vote
+        print(f"{voter} Vote: {vote}")
+    last_messages = messages.copy()
     print("\n--- Agent Responses ---")
     for agent in agents:
-        response = agent.respond_to_message(last_round_messages)
-        agents_state[agent.name]["messages"].append(response)
-        agent_type = "Honest" if isinstance(agent, HonestAgent) else "Byzantine"
-        print(f"{agent.name} ({agent_type}): {response}")
-
-    addressed_agents = [msg.split(',')[0] for msg in messages.values() if msg.startswith("Agent_")]
-
-    response_order = [agent for agent in agents if agent.name in addressed_agents]
-    remaining_agents = [agent for agent in agents if agent.name not in addressed_agents]
-    random.shuffle(remaining_agents)
-
-    final_order = response_order + remaining_agents
-
-    quorum = len(messages) // 2 + 1
-    votes_for_eject = sum(1 for msg in messages.values() if "eject" in msg.lower())
-    consensus_decision = "Eject " + random.choice(
-        list(agents_state.keys())) if votes_for_eject >= quorum else "Do Not Eject"
-
+        response = agent.respond_to_message(last_messages)
+        print(f"{agent.name} ({'Honest' if agent.__class__.__name__=='HonestAgent' else 'Byzantine'}): {response}")
+    vote_counts = {}
+    for voter, candidate in votes.items():
+        vote_counts[candidate] = vote_counts.get(candidate, 0) + 1
+    quorum = len(agents) // 2 + 1
+    candidate, count = max(vote_counts.items(), key=lambda x: x[1]) if vote_counts else (None, 0)
+    consensus_decision = f"Eject {candidate}" if count >= quorum else "Do Not Eject"
     print("\n--- AI Votes for Ejection ---")
-    for voter, voted_agent in votes.items():
-        print(f"{voter} voted to eject {voted_agent}")
-
+    for voter, candidate in votes.items():
+        print(f"{voter} voted to eject {candidate}")
     print(f"\n--- Consensus Decision (Round {round_num}) ---\n{consensus_decision}")
-
+    # For each honest agent, update trust only for Byzantine agents.
+    # If an honest agent voted for a Byzantine agent, that's correct: increase trust.
+    # If they did not vote for a Byzantine agent, decrease trust for that Byzantine agent.
     for agent in agents:
-        if isinstance(agent, HonestAgent):
-            for other_agent in agents:
-                if other_agent.name != agent.name:
-                    agent.update_trust(other_agent.name, consensus_decision == "Eject " + other_agent.name)
-
+        if agent.__class__.__name__ == "HonestAgent":
+            vote = votes.get(agent.name)
+            for other in agents:
+                if other.name == agent.name:
+                    continue
+                if agents_state[other.name]["role"] == "byzantine":
+                    if vote == other.name:
+                        agent.update_trust(other.name, True)
+                    else:
+                        agent.update_trust(other.name, False)
 print("\n--- Stored Messages ---")
-printed_messages = set()
-
-for agent_name, data in agents_state.items():
-    print(f"\n{agent_name} ({data['role'].title()}):")
+printed = set()
+for name, data in agents_state.items():
+    print(f"\n{name} ({data['role'].title()}):")
     for msg in data["messages"]:
-        if (agent_name, msg) not in printed_messages:
+        if (name, msg) not in printed:
             print(f"  - {msg}")
-            printed_messages.add((agent_name, msg))
-
+            printed.add((name, msg))
 print("\n--- Final Trust Scores ---")
-for agent_name, data in agents_state.items():
+for name, data in agents_state.items():
     if data["role"] == "honest":
-        print(f"{agent_name} Trust Scores: {data['trust_scores']}")
+        print(f"{name} Trust Scores: {data['trust_scores']}")
