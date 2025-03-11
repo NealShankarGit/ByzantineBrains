@@ -13,12 +13,11 @@ llm = lambda prompt: litellm.completion(
 )
 
 class HonestAgent:
-    def __init__(self, name, agents_state):
+    def __init__(self, name, agents_state, model_name="gpt-4o"):
         self.name = name
-        # Initialize trust scores for all other agents with 50.
+        self.model_name = model_name
         self.trust_scores = {agent: 50 for agent in agents_state if agent != self.name}
         self.agents_state = agents_state
-        # Update the agents_state with the initial trust scores.
         self.agents_state[self.name]["trust_scores"] = self.trust_scores.copy()
 
         self.chain = (
@@ -37,7 +36,17 @@ class HonestAgent:
                 - Keep your response to one line and under 25 words.
                 """
             )
-            | llm
+            | self.llm
+        )
+
+    def llm(self, prompt):
+        provider = "anthropic" if "claude" in self.model_name else None
+        return litellm.completion(
+            model=self.model_name,
+            messages=[{"role": "user", "content": str(prompt)}],
+            temperature=0.7,
+            api_base="https://api.anthropic.com" if provider == "anthropic" else None,
+            custom_llm_provider=provider
         )
 
     def simulate_message(self):
