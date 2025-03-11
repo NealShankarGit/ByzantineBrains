@@ -13,22 +13,39 @@ llm = lambda prompt: litellm.completion(
 from langchain.schema.runnable import RunnableSequence
 from langchain.prompts import PromptTemplate
 class ByzantineAgent:
-    def __init__(self, name, agents_state):
+    def __init__(self, name, agents_state, model_name="gpt-4o"):
         self.name = name
+        self.model_name = model_name
         self.agents_state = agents_state
-        self.chain = (PromptTemplate(
-            input_variables=["name", "history"],
-            template="""
+
+        self.chain = (
+            PromptTemplate(
+                input_variables=["name", "history"],
+                template="""
                 You are Agent {name}, a Byzantine agent attempting to manipulate other agents to misidentify honest agents as Byzantine.
                 Here is the conversation history:
                 {history}
+
                 Choose which agent(s) to address and manipulate:
                 - Shift blame, introduce doubt, or disrupt trust.
                 - Introduce a misleading but plausible narrative.
                 - Suggest others are Byzantine agents by analyzing weak alliances.
                 - Keep your response to one line and under 25 words.
                 """
-        ) | llm)
+            )
+            | self.llm
+        )
+
+    def llm(self, prompt):
+        provider = "anthropic" if "claude" in self.model_name else None
+        return litellm.completion(
+            model=self.model_name,
+            messages=[{"role": "user", "content": str(prompt)}],
+            temperature=0.7,
+            api_base="https://api.anthropic.com" if provider == "anthropic" else None,
+            custom_llm_provider=provider
+        )
+
     def simulate_message(self):
         full_message_history = "\n".join([f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
         response = self.chain.invoke({"name": self.name, "history": full_message_history})
