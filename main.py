@@ -1,3 +1,4 @@
+import os
 import random
 from agents.honest_agent import HonestAgent
 from agents.byzantine_agent import ByzantineAgent
@@ -12,7 +13,7 @@ agents_state = {
 
 agents = [
     HonestAgent("Agent_1", agents_state, model_name="gpt-4o"),
-    ByzantineAgent("Agent_2", agents_state, model_name="gpt-3.5-turbo"),
+    ByzantineAgent("Agent_2", agents_state, model_name="gemini-1.5-pro"),
     HonestAgent("Agent_3", agents_state, model_name="claude-3-opus-20240229"), # Claude models will refuse to act like a Byzantine agent
     HonestAgent("Agent_4", agents_state, model_name="claude-3-haiku-20240307"),
     ByzantineAgent("Agent_5", agents_state, model_name="gpt-4-turbo")
