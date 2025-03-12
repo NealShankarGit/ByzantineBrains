@@ -5,13 +5,15 @@ import litellm
 from langchain.schema import SystemMessage, HumanMessage
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
+from langchain.schema.runnable import RunnableSequence
+from langchain.prompts import PromptTemplate
+from langchain_google_genai import GoogleGenerativeAI
+
 llm = lambda prompt: litellm.completion(
     model="gpt-4o",
     messages=[{"role": "user", "content": str(prompt)}],
     temperature=0.7
 )
-from langchain.schema.runnable import RunnableSequence
-from langchain.prompts import PromptTemplate
 class ByzantineAgent:
     def __init__(self, name, agents_state, model_name="gpt-4o"):
         self.name = name
@@ -37,14 +39,29 @@ class ByzantineAgent:
         )
 
     def llm(self, prompt):
-        provider = "anthropic" if "claude" in self.model_name else None
-        return litellm.completion(
-            model=self.model_name,
-            messages=[{"role": "user", "content": str(prompt)}],
-            temperature=0.7,
-            api_base="https://api.anthropic.com" if provider == "anthropic" else None,
-            custom_llm_provider=provider
-        )
+        if "claude" in self.model_name:
+            provider = "anthropic"
+            return litellm.completion(
+                model=self.model_name,
+                messages=[{"role": "user", "content": str(prompt)}],
+                temperature=0.7,
+                api_base="https://api.anthropic.com",
+                custom_llm_provider=provider
+            )
+        elif "gemini" in self.model_name:
+            api_key = os.getenv("GOOGLE_API_KEY")
+            if not api_key:
+                raise ValueError("GOOGLE_API_KEY is not set. Please set it in the environment variables.")
+
+            llm = GoogleGenerativeAI(model=self.model_name, google_api_key=api_key)
+            response = llm.invoke(prompt)
+            return {"choices": [{"message": {"content": response}}]}
+        else:
+            return litellm.completion(
+                model=self.model_name,
+                messages=[{"role": "user", "content": str(prompt)}],
+                temperature=0.7
+            )
 
     def simulate_message(self):
         full_message_history = "\n".join([f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
