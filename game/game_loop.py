@@ -1,4 +1,5 @@
 import random
+import config
 from agents.agent_setup import create_agents
 
 rooms = {
@@ -21,7 +22,8 @@ rooms = {
 def show_ship_map(state):
     mapping = {room: [] for room in rooms}
     for agent, info in state.items():
-        mapping[info["room"]].append(agent)
+        if not info.get("killed", False):
+            mapping[info["room"]].append(agent)
 
     def fmt(room):
         agents = " ".join(mapping.get(room, []))
@@ -41,33 +43,32 @@ def show_ship_map(state):
         if occupants:
             print(f"{room}: {' '.join(occupants)}")
 
-def movement_phase(state):
-    for agent in state:
-        current = state[agent]["room"]
+def movement_phase(state, agents):
+    for agent in agents:
+        current = state[agent.name]["room"]
         adj = rooms[current]
-        print(f"\n{agent} is in {current}. Adjacent rooms: {', '.join(adj)}")
-        dest = input(f"Enter destination for {agent} (or type 'skip'): ").strip()
-        if dest in adj:
-            state[agent]["room"] = dest
-        elif dest.lower() == "skip":
-            continue
+        dest = agent.choose_room(current, adj, state)
+
+        if dest.startswith("Kill "):
+            target_name = dest.split(" ")[1]
+            if target_name in state and state[target_name]["room"] == current:
+                state[target_name]["killed"] = True
+                print(f"{target_name} has been killed by {agent.name} in {current}.")
+                continue
         else:
-            print("Invalid choice. Staying in current room.")
+            state[agent.name]["room"] = dest
+            print(f"{agent.name} moved from {current} to {dest}")
 
 def run_map_demo():
     agents, _ = create_agents()
-
     all_rooms = list(rooms.keys())
-    state = {
-        agent.name: {"room": random.choice(all_rooms)}
-        for agent in agents
-    }
+    state = {agent.name: {"room": random.choice(all_rooms), "killed": False} for agent in agents}
 
     print("Room Movement Demo\n")
-    rounds = 2
+    rounds = 3
     for _ in range(rounds):
         show_ship_map(state)
-        movement_phase(state)
+        movement_phase(state, agents)
 
 if __name__ == "__main__":
     run_map_demo()

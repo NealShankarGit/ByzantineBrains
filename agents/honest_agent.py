@@ -99,6 +99,33 @@ class HonestAgent:
             self.agents_state[self.name]["messages"].append(response)
         return response
 
+    def choose_room(self, current_room, adjacent_rooms, full_state):
+        nearby = {
+            room: [agent for agent, info in full_state.items() if info["room"] == room]
+            for room in adjacent_rooms
+        }
+
+        nearby_str = "\n".join(f"{room}: {', '.join(agents) if agents else 'empty'}" for room, agents in nearby.items())
+
+        current_room_agents = [agent for agent, info in full_state.items() if info["room"] == current_room]
+        current_room_str = f"Current Room ({current_room}): {', '.join(current_room_agents)}"
+
+        prompt = f"""
+        You are {self.name}, currently in {current_room}.
+        {current_room_str}
+
+        The adjacent rooms are:
+        {nearby_str}
+
+        You can choose to stay in the current room or move to one of the adjacent rooms. 
+        Reply with the room name you want to move to, or simply reply with the current room name if you want to stay.
+        - If you're honest, move toward collaboration or gathering information by moving to rooms with other players.
+        - If you're byzantine, move where you can deceive or manipulate.
+        """
+
+        response = self.llm(prompt)["choices"][0]["message"]["content"].strip()
+        return response if response in adjacent_rooms or response == current_room else current_room
+
     def update_trust(self, other_agent, voted_correctly):
         """
         Adjusts trust score for a given agent.

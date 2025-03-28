@@ -1,5 +1,6 @@
 import os
 import random
+import config
 from agents.honest_agent import HonestAgent
 from agents.byzantine_agent import ByzantineAgent
 

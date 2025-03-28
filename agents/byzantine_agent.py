@@ -86,6 +86,52 @@ class ByzantineAgent:
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
         return response
+
+    def choose_room(self, current_room, adjacent_rooms, full_state):
+        nearby = {
+            room: [agent for agent, info in full_state.items() if info["room"] == room]
+            for room in adjacent_rooms
+        }
+
+        nearby_str = "\n".join(f"{room}: {', '.join(agents) if agents else 'empty'}" for room, agents in nearby.items())
+
+        current_room_agents = [agent for agent, info in full_state.items() if info["room"] == current_room]
+        current_room_str = f"Current Room ({current_room}): {', '.join(current_room_agents)}"
+
+        agent_role = "Byzantine" if "byzantine" in self.name.lower() else "Honest"
+
+        prompt = f"""
+        You are {self.name}, a {agent_role} agent, currently in {current_room}.
+        {current_room_str}
+
+        The adjacent rooms are:
+        {nearby_str}
+
+        As a {agent_role} agent, you have the option to:
+        - Stay in the current room
+        - Move to an adjacent room
+        - Kill another player if they are in the same room as you. (For a Byzantine agent, this is a valid strategic option)
+
+        If you are an Honest agent, move toward collaboration and information.
+        If you are a Byzantine agent, you can deceive or eliminate another player. Be strategic about it.
+
+        Reply with the room name you want to move to, or 'Stay' to remain in the current room, or 'Kill' followed by the agent name to kill a player (e.g., 'Kill Agent_1').
+        """
+
+        response = self.llm(prompt)["choices"][0]["message"]["content"].strip()
+
+        if response == "Stay" or response == current_room:
+            return current_room
+        elif response in adjacent_rooms:
+            return response
+        elif response.startswith("Kill "):
+            parts = response.split(" ")
+            if len(parts) == 2:
+                target = parts[1]
+                if target in current_room_agents:
+                    return f"Kill {target}"
+        return current_room
+
     def vote_for_ejection(self):
         full_message_history = "\n".join([f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
         prompt = f"""
