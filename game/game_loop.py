@@ -1,4 +1,5 @@
 import random
+from agents.agent_setup import create_agents
 
 rooms = {
     "Cafeteria": ["Weapons", "Navigation", "Storage", "Admin", "MedBay", "Upper Engine"],
@@ -54,13 +55,14 @@ def movement_phase(state):
             print("Invalid choice. Staying in current room.")
 
 def run_map_demo():
+    agents, _ = create_agents()
+
+    all_rooms = list(rooms.keys())
     state = {
-        "Agent_1": {"room": "MedBay"},
-        "Agent_2": {"room": "MedBay"},
-        "Agent_3": {"room": "Admin"},
-        "Agent_4": {"room": "Storage"},
-        "Agent_5": {"room": "Weapons"}
+        agent.name: {"room": random.choice(all_rooms)}
+        for agent in agents
     }
+
     print("Room Movement Demo\n")
     rounds = 2
     for _ in range(rounds):
