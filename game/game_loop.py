@@ -57,7 +57,10 @@ def movement_phase(state, agents):
                 continue
         else:
             state[agent.name]["room"] = dest
-            print(f"{agent.name} moved from {current} to {dest}")
+            if dest == current:
+                print(f"{agent.name} stayed in {current}")
+            else:
+                print(f"{agent.name} moved from {current} to {dest}")
 
 def run_map_demo():
     agents, _ = create_agents()

@@ -114,11 +114,11 @@ class HonestAgent:
         You are {self.name}, currently in {current_room}.
         {current_room_str}
 
-        The adjacent rooms are:
+        The adjacent rooms are (which you MUST choose from):
         {nearby_str}
 
-        You can choose to stay in the current room or move to one of the adjacent rooms. 
-        Reply with the room name you want to move to, or simply reply with the current room name if you want to stay.
+        Move to one of the adjacent rooms. You should prioritize moving if alone in a room.
+        Reply with the adjacent room name you want to move to.
         - If you're honest, move toward collaboration or gathering information by moving to rooms with other players.
         - If you're byzantine, move where you can deceive or manipulate.
         """

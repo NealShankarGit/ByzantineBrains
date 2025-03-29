@@ -104,18 +104,17 @@ class ByzantineAgent:
         You are {self.name}, a {agent_role} agent, currently in {current_room}.
         {current_room_str}
 
-        The adjacent rooms are:
+        The adjacent rooms are (which you MUST choose from):
         {nearby_str}
 
         As a {agent_role} agent, you have the option to:
-        - Stay in the current room
         - Move to an adjacent room
         - Kill another player if they are in the same room as you. (For a Byzantine agent, this is a valid strategic option)
 
         If you are an Honest agent, move toward collaboration and information.
         If you are a Byzantine agent, you can deceive or eliminate another player. Be strategic about it.
 
-        Reply with the room name you want to move to, or 'Stay' to remain in the current room, or 'Kill' followed by the agent name to kill a player (e.g., 'Kill Agent_1').
+        Reply with the adjacent room name you want to move to or 'Kill' followed by the agent name to kill a player (e.g., 'Kill Agent_1').
         """
 
         response = self.llm(prompt)["choices"][0]["message"]["content"].strip()
