@@ -62,10 +62,19 @@ def movement_phase(state, agents):
             else:
                 print(f"{agent.name} moved from {current} to {dest}")
 
+        seen = [a for a in state if state[a]["room"] == dest and a != agent.name and not state[a]["killed"]]
+        state[agent.name]["perception"].append({"room": dest, "agents_seen": seen})
+
 def run_map_demo():
     agents, _ = create_agents()
     all_rooms = list(rooms.keys())
-    state = {agent.name: {"room": random.choice(all_rooms), "killed": False} for agent in agents}
+    state = {
+        agent.name: {
+            "room": random.choice(all_rooms),
+            "killed": False,
+            "perception": []
+        } for agent in agents
+    }
 
     print("Room Movement Demo\n")
     rounds = 3

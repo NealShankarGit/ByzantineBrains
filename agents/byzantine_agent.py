@@ -64,7 +64,18 @@ class ByzantineAgent:
             )
 
     def simulate_message(self):
-        full_message_history = "\n".join([f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
+        perception_log = self.agents_state[self.name].get("perception", [])
+        recent = perception_log[-1] if perception_log else {}
+        seen_agents = ", ".join(recent.get("agents_seen", []))
+        room_seen = recent.get("room", "Unknown")
+
+        perception_context = f"In your last room ({room_seen}), you saw: {seen_agents if seen_agents else 'no one'}.\n"
+
+        full_message_history = perception_context + (
+            "\n".join(
+                [f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]
+            ) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
+        )
         response = self.chain.invoke({"name": self.name, "history": full_message_history})
         message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)

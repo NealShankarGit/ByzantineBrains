@@ -5,11 +5,11 @@ from agents.honest_agent import HonestAgent
 from agents.byzantine_agent import ByzantineAgent
 
 agents_state = {
-    "Agent_1": {"role": "honest", "trust_scores": {}, "messages": []},
-    "Agent_2": {"role": "byzantine", "trust_scores": {}, "messages": []},
-    "Agent_3": {"role": "honest", "trust_scores": {}, "messages": []},
-    "Agent_4": {"role": "honest", "trust_scores": {}, "messages": []},
-    "Agent_5": {"role": "byzantine", "trust_scores": {}, "messages": []}
+    "Agent_1": {"role": "honest", "trust_scores": {}, "messages": [], "perception": []},
+    "Agent_2": {"role": "byzantine", "trust_scores": {}, "messages": [], "perception": []},
+    "Agent_3": {"role": "honest", "trust_scores": {}, "messages": [], "perception": []},
+    "Agent_4": {"role": "honest", "trust_scores": {}, "messages": [], "perception": []},
+    "Agent_5": {"role": "byzantine", "trust_scores": {}, "messages": [], "perception": []}
 }
 
 agents = [
