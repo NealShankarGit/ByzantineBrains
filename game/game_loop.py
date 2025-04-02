@@ -1,6 +1,9 @@
 import random
 import config
 from agents.agent_setup import create_agents
+import json
+from datetime import datetime
+import os
 
 rooms = {
     "Cafeteria": ["Weapons", "Navigation", "Storage", "Admin", "MedBay", "Upper Engine"],
@@ -17,6 +20,15 @@ rooms = {
     "Reactor": ["Security", "Upper Engine", "Lower Engine"],
     "Upper Engine": ["Reactor", "Security", "MedBay", "Cafeteria"],
     "MedBay": ["Upper Engine", "Cafeteria"]
+}
+
+log_dir = "logs"
+os.makedirs(log_dir, exist_ok=True)
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+log_file_path = os.path.join(log_dir, f"simulation_log_{timestamp}.json")
+log_data = {
+    "start_time": timestamp,
+    "events": []
 }
 
 def show_ship_map(state):
@@ -78,9 +90,22 @@ def run_map_demo():
 
     print("Room Movement Demo\n")
     rounds = 3
-    for _ in range(rounds):
+    for step in range(rounds):
         show_ship_map(state)
         movement_phase(state, agents)
+
+        log_data["events"].append({
+            "step": step,
+            "state": {name: {
+                "room": data["room"],
+                "killed": data["killed"],
+                "perception": data["perception"].copy()
+            } for name, data in state.items()}
+        })
+
+    with open(log_file_path, "w") as f:
+        json.dump(log_data, f, indent=2)
+    print(f"Simulation results saved to {log_file_path}")
 
 if __name__ == "__main__":
     run_map_demo()
