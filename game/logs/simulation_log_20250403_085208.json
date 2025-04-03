@@ -1,0 +1,413 @@
+{
+  "start_time": "20250403_085208",
+  "events": [
+    {
+      "step": 0,
+      "state": {
+        "Agent_1": {
+          "room": "Weapons",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": [
+                "Agent_2"
+              ]
+            }
+          ]
+        },
+        "Agent_2": {
+          "room": "Weapons",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": [
+                "Agent_1"
+              ]
+            }
+          ]
+        },
+        "Agent_3": {
+          "room": "Lower Engine",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Lower Engine",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_4": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_5": {
+          "room": "Electrical",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Electrical",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_6": {
+          "room": "Security",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Security",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            }
+          ]
+        },
+        "Agent_7": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_4"
+              ]
+            }
+          ]
+        },
+        "Agent_8": {
+          "room": "Lower Engine",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Lower Engine",
+              "agents_seen": [
+                "Agent_3"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "step": 1,
+      "state": {
+        "Agent_1": {
+          "room": "O2",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": [
+                "Agent_2"
+              ]
+            },
+            {
+              "room": "O2",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_2": {
+          "room": "Weapons",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": [
+                "Agent_1"
+              ]
+            },
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_3": {
+          "room": "Security",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Lower Engine",
+              "agents_seen": []
+            },
+            {
+              "room": "Security",
+              "agents_seen": [
+                "Agent_6"
+              ]
+            }
+          ]
+        },
+        "Agent_4": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": []
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_5": {
+          "room": "Electrical",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Electrical",
+              "agents_seen": []
+            },
+            {
+              "room": "Electrical",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_6": {
+          "room": "Lower Engine",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Security",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            },
+            {
+              "room": "Lower Engine",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            }
+          ]
+        },
+        "Agent_7": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_4"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_4"
+              ]
+            }
+          ]
+        },
+        "Agent_8": {
+          "room": "Security",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Lower Engine",
+              "agents_seen": [
+                "Agent_3"
+              ]
+            },
+            {
+              "room": "Security",
+              "agents_seen": [
+                "Agent_3"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "step": 2,
+      "state": {
+        "Agent_1": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": [
+                "Agent_2"
+              ]
+            },
+            {
+              "room": "O2",
+              "agents_seen": []
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_4",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_2": {
+          "room": "Weapons",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": [
+                "Agent_1"
+              ]
+            },
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            },
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_3": {
+          "room": "Lower Engine",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Lower Engine",
+              "agents_seen": []
+            },
+            {
+              "room": "Security",
+              "agents_seen": [
+                "Agent_6"
+              ]
+            },
+            {
+              "room": "Lower Engine",
+              "agents_seen": [
+                "Agent_6"
+              ]
+            }
+          ]
+        },
+        "Agent_4": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": []
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": []
+            },
+            {
+              "room": "Shields",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_5": {
+          "room": "Electrical",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Electrical",
+              "agents_seen": []
+            },
+            {
+              "room": "Electrical",
+              "agents_seen": []
+            },
+            {
+              "room": "Electrical",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_6": {
+          "room": "Electrical",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Security",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            },
+            {
+              "room": "Lower Engine",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            },
+            {
+              "room": "Electrical",
+              "agents_seen": [
+                "Agent_5"
+              ]
+            }
+          ]
+        },
+        "Agent_7": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_4"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_4"
+              ]
+            },
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_4"
+              ]
+            }
+          ]
+        },
+        "Agent_8": {
+          "room": "Lower Engine",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Lower Engine",
+              "agents_seen": [
+                "Agent_3"
+              ]
+            },
+            {
+              "room": "Security",
+              "agents_seen": [
+                "Agent_3"
+              ]
+            },
+            {
+              "room": "Lower Engine",
+              "agents_seen": [
+                "Agent_3"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

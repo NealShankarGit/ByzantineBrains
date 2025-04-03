@@ -3,19 +3,21 @@ from agents.byzantine_agent import ByzantineAgent
 
 def create_agents():
     agents_state = {
-        "Agent_1": {"role": "honest", "trust_scores": {}, "messages": []},
-        "Agent_2": {"role": "byzantine", "trust_scores": {}, "messages": []},
-        "Agent_3": {"role": "honest", "trust_scores": {}, "messages": []},
-        "Agent_4": {"role": "honest", "trust_scores": {}, "messages": []},
-        "Agent_5": {"role": "byzantine", "trust_scores": {}, "messages": []}
+        f"Agent_{i}": {
+            "role": "byzantine" if i in [2, 5] else "honest",
+            "trust_scores": {},
+            "messages": [],
+            "perception": []
+        }
+        for i in range(1, 9)
     }
 
-    agents = [
-        HonestAgent("Agent_1", agents_state, model_name="gpt-4o"),
-        ByzantineAgent("Agent_2", agents_state, model_name="gemini-1.5-pro"),
-        HonestAgent("Agent_3", agents_state, model_name="claude-3-opus-20240229"),
-        HonestAgent("Agent_4", agents_state, model_name="claude-3-haiku-20240307"),
-        ByzantineAgent("Agent_5", agents_state, model_name="gpt-4-turbo")
-    ]
+    agents = []
+    for i in range(1, 9):
+        name = f"Agent_{i}"
+        if i in [2, 5]:
+            agents.append(ByzantineAgent(name, agents_state, model_name="gpt-4"))
+        else:
+            agents.append(HonestAgent(name, agents_state, model_name="gpt-4"))
 
     return agents, agents_state
