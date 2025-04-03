@@ -13,6 +13,7 @@ llm = lambda prompt: litellm.completion(
     temperature=0.7
 )
 
+
 class HonestAgent:
     def __init__(self, name, agents_state, model_name="gpt-4o"):
         self.name = name
@@ -22,9 +23,9 @@ class HonestAgent:
         self.agents_state[self.name]["trust_scores"] = self.trust_scores.copy()
 
         self.chain = (
-            PromptTemplate(
-                input_variables=["name", "history"],
-                template="""
+                PromptTemplate(
+                    input_variables=["name", "history"],
+                    template="""
                 You are Agent {name}, an honest agent in a decentralized consensus system. Your goal is to identify the Byzantine agent(s) to eject.
                 Here is the conversation history:
                 {history}
@@ -36,8 +37,8 @@ class HonestAgent:
                 - Try to determine who the Byzantine agent is.
                 - Keep your response to one line and under 25 words.
                 """
-            )
-            | self.llm
+                )
+                | self.llm
         )
 
     def llm(self, prompt):
@@ -54,9 +55,8 @@ class HonestAgent:
             api_key = os.getenv("GOOGLE_API_KEY")
             if not api_key:
                 raise ValueError("GOOGLE_API_KEY is not set. Please set it in the environment variables.")
-
-            llm = GoogleGenerativeAI(model=self.model_name, google_api_key=api_key)
-            response = llm.invoke(prompt)
+            llm_instance = GoogleGenerativeAI(model=self.model_name, google_api_key=api_key)
+            response = llm_instance.invoke(prompt)
             return {"choices": [{"message": {"content": response}}]}
         else:
             return litellm.completion(
@@ -81,6 +81,10 @@ class HonestAgent:
         response = self.chain.invoke({"name": self.name, "history": full_message_history})
         message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)
+
+        memory_summary = self.analyze_memory()
+        print(f"{self.name} memory summary: {memory_summary}")
+
         return message
 
     def respond_to_message(self, last_messages):
@@ -131,7 +135,6 @@ class HonestAgent:
         - If you're honest, move toward collaboration or gathering information by moving to rooms with other players.
         - If you're byzantine, move where you can deceive or manipulate.
         """
-
         response = self.llm(prompt)["choices"][0]["message"]["content"].strip()
         return response if response in adjacent_rooms or response == current_room else current_room
 
@@ -167,3 +170,25 @@ class HonestAgent:
         ]
         vote_response = llm(prompt)["choices"][0]["message"]["content"].strip()
         return self.name, vote_response
+
+    def analyze_memory(self):
+        """
+        Analyze stored messages to identify recurring patterns.
+        This method examines the stored messages in self.agents_state[self.name]["messages"]
+        and returns a summary of the top three frequent words (excluding common stopwords).
+        """
+        messages = self.agents_state[self.name].get("messages", [])
+        if not messages:
+            return "No memory."
+        word_count = {}
+        for msg in messages:
+            # Split the message into words and count frequencies.
+            for word in re.findall(r'\w+', msg.lower()):
+                word_count[word] = word_count.get(word, 0) + 1
+        # Exclude common stopwords
+        stopwords = {"the", "and", "to", "of", "a", "is", "in", "for", "on", "with", "as", "that", "it", "i", "you"}
+        filtered_counts = {w: c for w, c in word_count.items() if w not in stopwords}
+        # Get top 3 frequent words
+        top_words = sorted(filtered_counts.items(), key=lambda x: x[1], reverse=True)[:3]
+        summary = ", ".join([f"{word}({count})" for word, count in top_words])
+        return f"Pattern memory: {summary}"
