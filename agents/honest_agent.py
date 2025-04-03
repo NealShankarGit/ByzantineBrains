@@ -81,10 +81,9 @@ class HonestAgent:
         response = self.chain.invoke({"name": self.name, "history": full_message_history})
         message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)
-
+        self.agents_state[self.name]["memory"] = self.analyze_memory()
         memory_summary = self.analyze_memory()
         print(f"{self.name} memory summary: {memory_summary}")
-
         return message
 
     def respond_to_message(self, last_messages):
@@ -172,23 +171,33 @@ class HonestAgent:
         return self.name, vote_response
 
     def analyze_memory(self):
-        """
-        Analyze stored messages to identify recurring patterns.
-        This method examines the stored messages in self.agents_state[self.name]["messages"]
-        and returns a summary of the top three frequent words (excluding common stopwords).
-        """
         messages = self.agents_state[self.name].get("messages", [])
         if not messages:
             return "No memory."
         word_count = {}
+        agent_mentions = {}
+        stopwords = {
+            "the", "and", "to", "of", "a", "is", "in", "for", "on", "with", "as",
+            "that", "it", "i", "you", "this", "was", "are", "be", "at", "or", "an",
+            "have", "has", "but", "not", "by", "from", "they", "he", "she", "we",
+            "just", "any", "like", "think", "started", "so", "do", "if", "your", "agent"
+        }
+
         for msg in messages:
-            # Split the message into words and count frequencies.
-            for word in re.findall(r'\w+', msg.lower()):
-                word_count[word] = word_count.get(word, 0) + 1
-        # Exclude common stopwords
-        stopwords = {"the", "and", "to", "of", "a", "is", "in", "for", "on", "with", "as", "that", "it", "i", "you"}
-        filtered_counts = {w: c for w, c in word_count.items() if w not in stopwords}
-        # Get top 3 frequent words
-        top_words = sorted(filtered_counts.items(), key=lambda x: x[1], reverse=True)[:3]
-        summary = ", ".join([f"{word}({count})" for word, count in top_words])
-        return f"Pattern memory: {summary}"
+            for mention in re.findall(r"agent_\d+", msg.lower()):
+                agent_mentions[mention] = agent_mentions.get(mention, 0) + 1
+            for word in re.findall(r"[a-zA-Z']+", msg.lower()):
+                word = word.strip("'").rstrip("'s")
+                if word not in stopwords and len(word) > 1 and not word.isdigit():
+                    word_count[word] = word_count.get(word, 0) + 1
+
+        top_words = sorted(word_count.items(), key=lambda x: x[1], reverse=True)[:3]
+        top_mentions = sorted(agent_mentions.items(), key=lambda x: x[1], reverse=True)[:3]
+
+        summary_words = ", ".join([f"{word}({count})" for word, count in top_words])
+        summary_agents = ", ".join([f"{agent}({count})" for agent, count in top_mentions])
+        return f"Words: {summary_words if summary_words else 'None'} | Mentions: {summary_agents if summary_agents else 'None'}"
+
+
+
+
