@@ -1,0 +1,464 @@
+{
+  "start_time": "20250403_100422",
+  "events": [
+    {
+      "step": 0,
+      "state": {
+        "Agent_1": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_2": {
+          "room": "Weapons",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_3": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_4": {
+          "room": "Cafeteria",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Cafeteria",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_5": {
+          "room": "MedBay",
+          "killed": false,
+          "perception": [
+            {
+              "room": "MedBay",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_6": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_7": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            }
+          ]
+        },
+        "Agent_8": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_6"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "step": 1,
+      "state": {
+        "Agent_1": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_2": {
+          "room": "Weapons",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            },
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_3": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_4": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Cafeteria",
+              "agents_seen": []
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_5": {
+          "room": "MedBay",
+          "killed": false,
+          "perception": [
+            {
+              "room": "MedBay",
+              "agents_seen": []
+            },
+            {
+              "room": "MedBay",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_6": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_4",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_7": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            },
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            }
+          ]
+        },
+        "Agent_8": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_6"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_4",
+                "Agent_6"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "step": 2,
+      "state": {
+        "Agent_1": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_2": {
+          "room": "Weapons",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            },
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            },
+            {
+              "room": "Weapons",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_3": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_4": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Cafeteria",
+              "agents_seen": []
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_5": {
+          "room": "MedBay",
+          "killed": false,
+          "perception": [
+            {
+              "room": "MedBay",
+              "agents_seen": []
+            },
+            {
+              "room": "MedBay",
+              "agents_seen": []
+            },
+            {
+              "room": "MedBay",
+              "agents_seen": []
+            }
+          ]
+        },
+        "Agent_6": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_4",
+                "Agent_7"
+              ]
+            },
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_4",
+                "Agent_7"
+              ]
+            }
+          ]
+        },
+        "Agent_7": {
+          "room": "Navigation",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            },
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_8"
+              ]
+            }
+          ]
+        },
+        "Agent_8": {
+          "room": "Shields",
+          "killed": false,
+          "perception": [
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_6"
+              ]
+            },
+            {
+              "room": "Navigation",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_4",
+                "Agent_6"
+              ]
+            },
+            {
+              "room": "Shields",
+              "agents_seen": [
+                "Agent_1",
+                "Agent_3",
+                "Agent_4",
+                "Agent_6"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

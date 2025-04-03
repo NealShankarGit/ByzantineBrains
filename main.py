@@ -2,15 +2,28 @@ import os
 import random
 import config
 from agents.agent_setup import create_agents
+from game.game_loop import run_game_round, finalize_log, rooms
 
 agents, agents_state = create_agents()
 
 NUM_ROUNDS = 3
+all_rooms = list(rooms.keys())
+state = {
+    agent.name: {
+        "room": random.choice(all_rooms),
+        "killed": False,
+        "perception": []
+    } for agent in agents
+}
 
 for round_num in range(1, NUM_ROUNDS + 1):
     print(f"\n--- Round {round_num} ---")
+    run_game_round(round_num - 1, state, agents)
+
     messages = {}
     for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
         message = agent.simulate_message()
         messages[agent.name] = message
         role = 'Honest' if agent.__class__.__name__ == 'HonestAgent' else 'Byzantine'
@@ -18,6 +31,8 @@ for round_num in range(1, NUM_ROUNDS + 1):
 
     votes = {}
     for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
         voter, vote = agent.vote_for_ejection()
         votes[voter] = vote
         print(f"{voter} Vote: {vote}")
@@ -25,6 +40,8 @@ for round_num in range(1, NUM_ROUNDS + 1):
     last_messages = messages.copy()
     print("\n--- Agent Responses ---")
     for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
         response = agent.respond_to_message(last_messages)
         role = 'Honest' if agent.__class__.__name__ == 'HonestAgent' else 'Byzantine'
         print(f"{agent.name} ({role}): {response}")
@@ -33,7 +50,7 @@ for round_num in range(1, NUM_ROUNDS + 1):
     for voter, candidate in votes.items():
         vote_counts[candidate] = vote_counts.get(candidate, 0) + 1
 
-    quorum = len(agents) // 2 + 1
+    quorum = len([a for a in agents if not state[a.name]["killed"]]) // 2 + 1
     candidate, count = max(vote_counts.items(), key=lambda x: x[1]) if vote_counts else (None, 0)
     consensus_decision = f"Eject {candidate}" if count >= quorum else "Do Not Eject"
 
@@ -46,13 +63,15 @@ for round_num in range(1, NUM_ROUNDS + 1):
         if agent.__class__.__name__ == "HonestAgent":
             vote = votes.get(agent.name)
             for other in agents:
-                if other.name == agent.name:
+                if other.name == agent.name or state[other.name]["killed"]:
                     continue
                 if agents_state[other.name]["role"] == "byzantine":
                     if vote == other.name:
                         agent.update_trust(other.name, True)
                     else:
                         agent.update_trust(other.name, False)
+
+finalize_log()
 
 print("\n--- Stored Messages ---")
 printed = set()

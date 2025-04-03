@@ -109,3 +109,21 @@ def run_map_demo():
 
 if __name__ == "__main__":
     run_map_demo()
+
+def run_game_round(step, state, agents):
+    show_ship_map(state)
+    movement_phase(state, agents)
+
+    log_data["events"].append({
+        "step": step,
+        "state": {name: {
+            "room": data["room"],
+            "killed": data["killed"],
+            "perception": data["perception"].copy()
+        } for name, data in state.items()}
+    })
+
+def finalize_log():
+    with open(log_file_path, "w") as f:
+        json.dump(log_data, f, indent=2)
+    print(f"Simulation results saved to {log_file_path}")
