@@ -9,3 +9,5 @@ __pycache__/
 env/
 game/logs/*
 !game/logs/.gitkeep
+logs/*
+!/logs/.gitkeep
