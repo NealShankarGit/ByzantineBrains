@@ -65,13 +65,21 @@ class HonestAgent:
                 temperature=0.7
             )
 
-    def simulate_message(self):
+    def simulate_message(self, seen_history):
+        self.agents_state[self.name]["seen_history"] = seen_history
         perception_log = self.agents_state[self.name].get("perception", [])
         recent = perception_log[-1] if perception_log else {}
         seen_agents = ", ".join(recent.get("agents_seen", []))
         room_seen = recent.get("room", "Unknown")
 
-        perception_context = f"In your last room ({room_seen}), you saw: {seen_agents if seen_agents else 'no one'}.\n"
+        seen_history_lines = []
+        for i, entry in enumerate(seen_history, 1):
+            room = entry.get("room", "Unknown")
+            agents = ", ".join(entry.get("agents_seen", [])) if entry.get("agents_seen") else "no one"
+            seen_history_lines.append(f"Round {i}: saw {agents} in {room}")
+        seen_history_text = "\n".join(seen_history_lines) if seen_history_lines else "No history."
+
+        perception_context = f"Seen history:\n{seen_history_text}\n\nIn your last room ({room_seen}), you saw: {seen_agents if seen_agents else 'no one'}.\n"
 
         full_message_history = perception_context + (
             "\n".join(

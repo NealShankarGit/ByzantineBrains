@@ -12,7 +12,8 @@ state = {
     agent.name: {
         "room": random.choice(all_rooms),
         "killed": False,
-        "perception": []
+        "perception": [],
+        "seen_history": []
     } for agent in agents
 }
 
@@ -20,11 +21,27 @@ for round_num in range(1, NUM_ROUNDS + 1):
     print(f"\n--- Round {round_num} ---")
     run_game_round(round_num - 1, state, agents)
 
+    print("\n--- Agent Seen Outputs ---")
+    for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
+        perception = state[agent.name]["perception"]
+        recent = perception[-1] if perception else {}
+        seen_snapshot = {
+            "room": recent.get("room", "Unknown"),
+            "agents_seen": recent.get("agents_seen", [])
+        }
+        state[agent.name]["seen_history"].append(seen_snapshot)
+        print(f"{agent.name} Seen This Round: {seen_snapshot}")
+        print(f"{agent.name} Seen History:")
+        for i, past_seen in enumerate(state[agent.name]["seen_history"], 1):
+            print(f"  Round {i}: {past_seen}")
+
     messages = {}
     for agent in agents:
         if state[agent.name]["killed"]:
             continue
-        message = agent.simulate_message()
+        message = agent.simulate_message(state[agent.name]["seen_history"])
         messages[agent.name] = message
         role = 'Honest' if agent.__class__.__name__ == 'HonestAgent' else 'Byzantine'
         print(f"{agent.name} ({role}): {message}")
