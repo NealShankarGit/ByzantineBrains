@@ -33,13 +33,16 @@ log_data = {
 
 def show_ship_map(state):
     mapping = {room: [] for room in rooms}
+    bodies = {room: [] for room in rooms}
     for agent, info in state.items():
         if not info.get("killed", False):
             mapping[info["room"]].append(agent)
+        elif info.get("room_body"):
+            bodies[info["room_body"]].append(f"Body({agent})")
 
     def fmt(room):
-        agents = " ".join(mapping.get(room, []))
-        return f"[{room}]" if not agents else f"[{room}: {agents}]"
+        entries = mapping.get(room, []) + bodies.get(room, [])
+        return f"[{room}]" if not entries else f"[{room}: {' '.join(entries)}]"
 
     print("\n--- Ship Map ---\n")
     print(f"{fmt('Upper Engine')}               {fmt('Cafeteria')}              {fmt('Weapons')}")
@@ -65,8 +68,9 @@ def movement_phase(state, agents):
 
         if dest.startswith("Kill "):
             target_name = dest.split(" ")[1]
-            if target_name in state and state[target_name]["room"] == current:
+            if target_name in state and state[target_name]["room"] == current and not state[target_name]["killed"]:
                 state[target_name]["killed"] = True
+                state[target_name]["room_body"] = current
                 print(f"{target_name} has been killed by {agent.name} in {current}.")
                 continue
         else:
@@ -77,7 +81,21 @@ def movement_phase(state, agents):
                 print(f"{agent.name} moved from {current} to {dest}")
 
         seen = [a for a in state if state[a]["room"] == dest and a != agent.name and not state[a]["killed"]]
-        state[agent.name]["perception"].append({"room": dest, "agents_seen": seen})
+        room = state[agent.name]["room"]  # current location after moving
+
+        seen_bodies = [
+            a for a in state
+            if state[a].get("killed") and state[a].get("room_body") == room
+        ]
+
+        state[agent.name]["perception"].append({
+            "room": room,
+            "agents_seen": seen,
+            "bodies_seen": seen_bodies
+        })
+
+        if seen_bodies:
+            print(f"{agent.name} sees bodies: {seen_bodies} in {room}")
 
 def run_map_demo():
     agents, _ = create_agents()

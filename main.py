@@ -12,6 +12,7 @@ state = {
     agent.name: {
         "room": random.choice(all_rooms),
         "killed": False,
+        "room_body": None,
         "perception": [],
         "seen_history": []
     } for agent in agents
@@ -30,7 +31,8 @@ for round_num in range(1, NUM_ROUNDS + 1):
         recent = perception[-1] if perception else {}
         seen_snapshot = {
             "room": recent.get("room", "Unknown"),
-            "agents_seen": recent.get("agents_seen", [])
+            "agents_seen": recent.get("agents_seen", []),
+            "bodies_seen": recent.get("bodies_seen", [])
         }
         state[agent.name]["seen_history"].append(seen_snapshot)
         print(f"{agent.name} Seen This Round: {seen_snapshot}")

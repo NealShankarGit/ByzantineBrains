@@ -68,6 +68,7 @@ class ByzantineAgent:
         recent = seen_history[-1] if seen_history else {}
         room = recent.get("room", "Unknown")
         seen = ", ".join(recent.get("agents_seen", [])) or "no one"
+        bodies = ", ".join(recent.get("bodies_seen", [])) or "no bodies"
 
         recent_msgs = []
         for agent, data in self.agents_state.items():
@@ -76,11 +77,16 @@ class ByzantineAgent:
                 recent_msgs.append(f"{agent}: {msgs[-1]}")
         message_history = "\n".join(recent_msgs[-3:]) or "No messages."
 
-        context = f"{room} with {seen}\n{message_history}"
+        context = f"{room} with {seen}. Bodies seen: {bodies}\n{message_history}"
         response = self.chain.invoke({"name": self.name, "history": context})
         message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)
         self.agents_state[self.name]["memory"] = self.analyze_memory()
+
+        if recent.get("bodies_seen"):
+            if "report" in message.lower():
+                print(f"{self.name} reported a body in {room}!")
+
         return message
 
     def respond_to_message(self, last_messages, seen_history):
