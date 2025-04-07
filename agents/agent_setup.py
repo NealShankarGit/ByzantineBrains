@@ -12,12 +12,15 @@ def create_agents():
         for i in range(1, 9)
     }
 
-    agents = []
-    for i in range(1, 9):
-        name = f"Agent_{i}"
-        if i in [2, 5]:
-            agents.append(ByzantineAgent(name, agents_state, model_name="gpt-4"))
-        else:
-            agents.append(HonestAgent(name, agents_state, model_name="gpt-4"))
+    agents = [
+        HonestAgent("Agent_1", agents_state, model_name="gpt-4o"),
+        ByzantineAgent("Agent_2", agents_state, model_name="gemini-1.5-pro"),
+        HonestAgent("Agent_3", agents_state, model_name="claude-3-opus-20240229"),
+        HonestAgent("Agent_4", agents_state, model_name="claude-3-haiku-20240307"),
+        ByzantineAgent("Agent_5", agents_state, model_name="gpt-4-turbo"),
+        HonestAgent("Agent_6", agents_state, model_name="gpt-4o"),
+        HonestAgent("Agent_7", agents_state, model_name="gpt-4-turbo"),
+        HonestAgent("Agent_8", agents_state, model_name="claude-3-haiku-20240307")
+    ]
 
     return agents, agents_state

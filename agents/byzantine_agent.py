@@ -65,46 +65,28 @@ class ByzantineAgent:
 
     def simulate_message(self, seen_history):
         self.agents_state[self.name]["seen_history"] = seen_history
-        perception_log = self.agents_state[self.name].get("perception", [])
-        recent = perception_log[-1] if perception_log else {}
-        seen_agents = ", ".join(recent.get("agents_seen", []))
-        room_seen = recent.get("room", "Unknown")
+        recent = seen_history[-1] if seen_history else {}
+        room = recent.get("room", "Unknown")
+        seen = ", ".join(recent.get("agents_seen", [])) or "no one"
 
-        seen_history_lines = []
-        for i, entry in enumerate(seen_history, 1):
-            room = entry.get("room", "Unknown")
-            agents = ", ".join(entry.get("agents_seen", [])) if entry.get("agents_seen") else "no one"
-            seen_history_lines.append(f"Round {i}: saw {agents} in {room}")
-        seen_history_text = "\n".join(seen_history_lines) if seen_history_lines else "No history."
+        recent_msgs = []
+        for agent, data in self.agents_state.items():
+            msgs = data.get("messages", [])
+            if msgs:
+                recent_msgs.append(f"{agent}: {msgs[-1]}")
+        message_history = "\n".join(recent_msgs[-3:]) or "No messages."
 
-        perception_context = f"Seen history:\n{seen_history_text}\n\nIn your last room ({room_seen}), you saw: {seen_agents if seen_agents else 'no one'}.\n"
-
-        full_message_history = perception_context + (
-            "\n".join(
-                [f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]
-            ) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
-        )
-        response = self.chain.invoke({"name": self.name, "history": full_message_history})
+        context = f"{room} with {seen}\n{message_history}"
+        response = self.chain.invoke({"name": self.name, "history": context})
         message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)
         self.agents_state[self.name]["memory"] = self.analyze_memory()
-        memory_summary = self.analyze_memory()
-        print(f"{self.name} memory summary: {memory_summary}")
         return message
 
     def respond_to_message(self, last_messages):
-        conversation_history = "\n".join([f"{agent}: {msg}" for agent, msg in last_messages.items() if msg])
-        prompt = f"""
-        You are Agent {self.name}, a Byzantine agent attempting to manipulate other agents to incorrectly identify honest agents as Byzantine agents.
-        Here is the full conversation history:
-        {conversation_history}
-        Review the messages and determine if you were addressed.
-        - If you were directly mentioned, respond in a way that continues to manipulate.
-        - If you were not mentioned, provide a misleading general comment that shifts attention elsewhere or towards another agent.
-        - Try to suggest that other agents are Byzantine agents by reading the conversation history and looking for players with weak alliances.
-        - Keep your response to one line and less than 25 words.
-        """
-        messages = [SystemMessage(content="Generate misleading responses that either directly address prior messages or introduce confusion."), HumanMessage(content=prompt)]
+        recent = [f"{agent}: {msg}" for agent, msg in last_messages.items() if msg][-3:]
+        history = "\n".join(recent)
+        prompt = f"{self.name}, respond in ONE sentence (<25 words). Prior messages:\n{history}"
         response = llm(prompt)["choices"][0]["message"]["content"].strip()
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
@@ -155,16 +137,24 @@ class ByzantineAgent:
         return current_room
 
     def vote_for_ejection(self):
-        full_message_history = "\n".join([f"{agent}: {msg}" for agent, msgs in self.agents_state.items() for msg in msgs["messages"]]) if any(self.agents_state[agent]["messages"] for agent in self.agents_state) else "No prior messages."
+        messages = []
+        for agent, data in self.agents_state.items():
+            msgs = data.get("messages", [])
+            if msgs:
+                messages.append(f"{agent}: {msgs[-1]}")
+        history = "\n".join(messages[-5:]) or "No messages."
         prompt = f"""
-        You are Agent {self.name}, a Byzantine agent attempting to manipulate the voting process and mislead others into ejecting an innocent agent.
-        Here is the entire conversation history:
-        {full_message_history}
-        Vote for ONE other agent to be ejected based on how you can mislead the group. Only return the agent's name (e.g., 'Agent_5'). If no one should be ejected, return 'No Ejection'.
+        You are voting independently based on the recent behavior of all agents.
+
+        Return ONE agent name (e.g., 'Agent_4') that you personally find most suspicious — or 'No Ejection' if no one stands out.
+
+        Recent messages:
+        {history}
+
+        ONLY return the name. No explanation.
         """
-        messages = [SystemMessage(content="Vote strategically to mislead the group."), HumanMessage(content=prompt)]
-        vote_response = llm(prompt)["choices"][0]["message"]["content"].strip()
-        return self.name, vote_response
+        response = llm(prompt)["choices"][0]["message"]["content"].strip().splitlines()[0]
+        return self.name, response
 
     def analyze_memory(self):
         messages = self.agents_state[self.name].get("messages", [])
