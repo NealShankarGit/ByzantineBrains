@@ -16,6 +16,7 @@ state = {
         "seen_history": []
     } for agent in agents
 }
+ejected_agents = []
 
 for round_num in range(1, NUM_ROUNDS + 1):
     print(f"\n--- Round {round_num} ---")
@@ -75,6 +76,12 @@ for round_num in range(1, NUM_ROUNDS + 1):
     for voter, candidate in votes.items():
         print(f"{voter} voted to eject {candidate}")
     print(f"\n--- Consensus Decision (Round {round_num}) ---\n{consensus_decision}")
+
+    if consensus_decision.startswith("Eject "):
+        ejected_name = consensus_decision.split("Eject ")[1]
+        state[ejected_name]["killed"] = True
+        ejected_agents.append(ejected_name)
+        agents = [a for a in agents if a.name != ejected_name]
 
     for agent in agents:
         if agent.__class__.__name__ == "HonestAgent":

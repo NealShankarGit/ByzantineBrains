@@ -57,6 +57,8 @@ def show_ship_map(state):
 
 def movement_phase(state, agents):
     for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
         current = state[agent.name]["room"]
         adj = rooms[current]
         dest = agent.choose_room(current, adj, state)
