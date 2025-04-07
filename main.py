@@ -59,7 +59,7 @@ for round_num in range(1, NUM_ROUNDS + 1):
     for agent in agents:
         if state[agent.name]["killed"]:
             continue
-        response = agent.respond_to_message(last_messages)
+        response = agent.respond_to_message(last_messages, state[agent.name]["seen_history"])
         role = 'Honest' if agent.__class__.__name__ == 'HonestAgent' else 'Byzantine'
         print(f"{agent.name} ({role}): {response}")
 

@@ -83,10 +83,12 @@ class ByzantineAgent:
         self.agents_state[self.name]["memory"] = self.analyze_memory()
         return message
 
-    def respond_to_message(self, last_messages):
+    def respond_to_message(self, last_messages, seen_history):
+        self.agents_state[self.name]["seen_history"] = seen_history
         recent = [f"{agent}: {msg}" for agent, msg in last_messages.items() if msg][-3:]
-        history = "\n".join(recent)
-        prompt = f"{self.name}, respond in ONE sentence (<25 words). Prior messages:\n{history}"
+        seen_lines = [f"{entry['room']}: {', '.join(entry['agents_seen']) or 'no one'}" for entry in seen_history[-3:]]
+        context = "\n".join(recent + seen_lines)
+        prompt = f"{self.name}, respond in ONE sentence (<25 words). Prior messages and seen data:\n{context}"
         response = llm(prompt)["choices"][0]["message"]["content"].strip()
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
@@ -143,14 +145,24 @@ class ByzantineAgent:
             if msgs:
                 messages.append(f"{agent}: {msgs[-1]}")
         history = "\n".join(messages[-5:]) or "No messages."
-        prompt = f"""
-        You are voting independently based on the recent behavior of all agents.
 
-        Return ONE agent name (e.g., 'Agent_4') that you personally find most suspicious — or 'No Ejection' if no one stands out.
+        seen = self.agents_state[self.name].get("seen_history", [])
+        seen_lines = [f"{entry['room']}: {', '.join(entry['agents_seen']) or 'no one'}" for entry in seen[-3:]]
+        seen_history_str = "\n".join(seen_lines) or "No perception data."
+
+        prompt = f"""
+        You are a byzantine agent voting independently based on the recent behavior of all agents.
+
+        Return ONE agent name (e.g., 'Agent_4') that you find threatening to uncovering your byzantine status — or 'No Ejection' if no one stands out.
 
         Recent messages:
         {history}
-
+        
+        Your perception history:
+        {seen_history_str}
+        
+        Return ONE agent name (e.g., 'Agent_4') that you personally find most suspicious — or 'No Ejection' if no one stands out.
+        
         ONLY return the name. No explanation.
         """
         response = llm(prompt)["choices"][0]["message"]["content"].strip().splitlines()[0]
