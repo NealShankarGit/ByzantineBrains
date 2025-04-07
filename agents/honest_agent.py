@@ -13,7 +13,6 @@ llm = lambda prompt: litellm.completion(
     temperature=0.7
 )
 
-
 class HonestAgent:
     def __init__(self, name, agents_state, model_name="gpt-4o"):
         self.name = name

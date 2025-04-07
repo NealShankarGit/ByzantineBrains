@@ -122,6 +122,12 @@ class ByzantineAgent:
         If you are a Byzantine agent, you can deceive or eliminate another player. Be strategic about it.
 
         Reply with the adjacent room name you want to move to or 'Kill' followed by the agent name to kill a player (e.g., 'Kill Agent_1').
+        
+        Respond ONLY with one of the following:
+        - An adjacent room name to move (e.g., 'O2')
+        - Or 'Kill Agent_X' to kill someone in the same room
+        
+        You are a BYZANTINE agent. If a player is alone with you, consider killing them to reduce suspicion and win faster.
         """
 
         response = self.llm(prompt)["choices"][0]["message"]["content"].strip()

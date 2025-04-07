@@ -80,7 +80,8 @@ for round_num in range(1, NUM_ROUNDS + 1):
     if consensus_decision.startswith("Eject "):
         ejected_name = consensus_decision.split("Eject ")[1]
         state[ejected_name]["killed"] = True
-        ejected_agents.append(ejected_name)
+        is_byzantine = agents_state[ejected_name]["role"] == "byzantine"
+        ejected_agents.append({"name": ejected_name, "byzantine": is_byzantine})
         agents = [a for a in agents if a.name != ejected_name]
 
     for agent in agents:
