@@ -21,7 +21,19 @@ ejected_agents = []
 
 for round_num in range(1, NUM_ROUNDS + 1):
     print(f"\n--- Round {round_num} ---")
-    run_game_round(round_num - 1, state, agents)
+    run_game_round(round_num - 1, state, agents, agents_state)
+
+    reported_this_round = any(
+        agent.__class__.__name__ == "HonestAgent" and
+        agents_state[agent.name]["messages"] and
+        "body" in agents_state[agent.name]["messages"][-1].lower() and
+        "report" in agents_state[agent.name]["messages"][-1].lower()
+        for agent in agents
+        if not state[agent.name]["killed"]
+    )
+
+    if not reported_this_round:
+        continue
 
     print("\n--- Agent Seen Outputs ---")
     for agent in agents:
@@ -41,13 +53,14 @@ for round_num in range(1, NUM_ROUNDS + 1):
             print(f"  Round {i}: {past_seen}")
 
     messages = {}
-    for agent in agents:
-        if state[agent.name]["killed"]:
-            continue
-        message = agent.simulate_message(state[agent.name]["seen_history"])
-        messages[agent.name] = message
-        role = 'Honest' if agent.__class__.__name__ == 'HonestAgent' else 'Byzantine'
-        print(f"{agent.name} ({role}): {message}")
+    reported_this_round = any(
+        any("body" in msg.lower() and "report" in msg.lower() for msg in agents_state[agent.name]["messages"][-1:])
+        for agent in agents
+        if not state[agent.name]["killed"] and agent.__class__.__name__ == "HonestAgent"
+    )
+
+    if not reported_this_round:
+        continue
 
     votes = {}
     for agent in agents:

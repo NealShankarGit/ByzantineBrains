@@ -84,6 +84,8 @@ class HonestAgent:
 
         bodies = ", ".join(bodies_list) or "no bodies"
         context = f"{room} with {seen}. Bodies seen: {bodies}\n{message_history}"
+        print(
+            f"\n[simulate_message] Prompt to {self.name}:\n{self.chain.prompt.format(name=self.name, history=context)}")
         response = self.chain.invoke({"name": self.name, "history": context})
         message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)
@@ -98,6 +100,7 @@ class HonestAgent:
         context = "\n".join(recent + seen_lines)
         prompt = f"{self.name}, respond in ONE sentence (<25 words). Prior messages and seen data:\n{context}"
         response = llm(prompt)["choices"][0]["message"]["content"].strip()
+        print(f"\n[respond_to_message] Prompt to {self.name}:\n{prompt}")
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
         return response

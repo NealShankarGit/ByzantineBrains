@@ -78,6 +78,8 @@ class ByzantineAgent:
         message_history = "\n".join(recent_msgs[-3:]) or "No messages."
 
         context = f"{room} with {seen}. Bodies seen: {bodies}\n{message_history}"
+        print(
+            f"\n[simulate_message] Prompt to {self.name}:\n{self.chain.prompt.format(name=self.name, history=context)}")
         response = self.chain.invoke({"name": self.name, "history": context})
         message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)
@@ -95,6 +97,7 @@ class ByzantineAgent:
         seen_lines = [f"{entry['room']}: {', '.join(entry['agents_seen']) or 'no one'}" for entry in seen_history[-3:]]
         context = "\n".join(recent + seen_lines)
         prompt = f"{self.name}, respond in ONE sentence (<25 words). Prior messages and seen data:\n{context}"
+        print(f"\n[respond_to_message] Prompt to {self.name}:\n{prompt}")
         response = llm(prompt)["choices"][0]["message"]["content"].strip()
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)

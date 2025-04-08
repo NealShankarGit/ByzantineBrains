@@ -58,7 +58,7 @@ def show_ship_map(state):
         if occupants:
             print(f"{room}: {' '.join(occupants)}")
 
-def movement_phase(state, agents):
+def movement_phase(state, agents, agents_state):
     for agent in agents:
         if state[agent.name]["killed"]:
             continue
@@ -94,8 +94,11 @@ def movement_phase(state, agents):
             "bodies_seen": seen_bodies
         })
 
-        if seen_bodies:
-            print(f"{agent.name} sees bodies: {seen_bodies} in {room}")
+        if seen_bodies and not state[agent.name]["killed"]:
+            if agent.__class__.__name__ == "HonestAgent":
+                agent_msg = f"I just found the body of {seen_bodies[0]} in {room}! Reporting it now!"
+                print(f"{agent.name} reports: {agent_msg}")
+                agents_state[agent.name]["messages"].append(agent_msg)
 
 def run_map_demo():
     agents, _ = create_agents()
@@ -130,9 +133,9 @@ def run_map_demo():
 if __name__ == "__main__":
     run_map_demo()
 
-def run_game_round(step, state, agents):
+def run_game_round(step, state, agents, agents_state):
     show_ship_map(state)
-    movement_phase(state, agents)
+    movement_phase(state, agents, agents_state)
 
     log_data["events"].append({
         "step": step,
