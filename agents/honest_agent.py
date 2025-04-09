@@ -73,7 +73,10 @@ class HonestAgent:
         bodies_list = recent.get("bodies_seen", [])
 
         if bodies_list:
-            return f"I just found the body of {bodies_list[0]} in {room}! Reporting it now!"
+            message = f"I just found the body of {bodies_list[0]} in {room}! Reporting it now!"
+            print(f"{self.name} says: {message}")
+            self.agents_state[self.name]["messages"].append(message)
+            return message
 
         recent_msgs = []
         for agent, data in self.agents_state.items():
@@ -89,7 +92,7 @@ class HonestAgent:
         You are Agent {self.name}, an honest agent in a decentralized consensus system. Your goal is to identify the Byzantine agent(s) to eject.
         Here is the conversation history:
         {context}
-    
+
         Choose how to contribute:
         - If an agent seems suspicious, call them out.
         - If a debate is forming, provide your perspective.
@@ -100,9 +103,9 @@ class HonestAgent:
 
         response = self.llm(prompt)
         message = response["choices"][0]["message"]["content"].strip()
+        print(f"{self.name} says: {message}")
         self.agents_state[self.name]["messages"].append(message)
         self.agents_state[self.name]["memory"] = self.analyze_memory()
-
         return message
 
     def respond_to_message(self, last_messages, seen_history):
@@ -118,8 +121,8 @@ class HonestAgent:
         context = "\n".join(["Last 3 conversation messages:"] + recent_msgs + [
             "\nYour perception history (last 3 rounds):"] + perception_lines)
         prompt = f"{self.name}, respond in ONE sentence (<25 words). You are participating in a deception-detection game. Here’s what you know:\n{context}"
-        response = llm(prompt)["choices"][0]["message"]["content"].strip()
-        print(f"\n[respond_to_message] Prompt to {self.name}:\n{prompt}")
+        response = self.llm(prompt)["choices"][0]["message"]["content"].strip()
+        print(f"{self.name} responded: {response}")
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
         return response

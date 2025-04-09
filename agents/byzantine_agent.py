@@ -84,7 +84,7 @@ class ByzantineAgent:
         You are Agent {self.name}, a Byzantine agent attempting to manipulate other agents to misidentify honest agents as Byzantine.
         Here is the conversation history:
         {context}
-    
+
         Choose which agent(s) to address and manipulate:
         - Shift blame, introduce doubt, or disrupt trust.
         - Introduce a misleading but plausible narrative.
@@ -94,6 +94,7 @@ class ByzantineAgent:
 
         response = self.llm(prompt)
         message = response["choices"][0]["message"]["content"].strip()
+        print(f"{self.name} says: {message}")
         self.agents_state[self.name]["messages"].append(message)
         self.agents_state[self.name]["memory"] = self.analyze_memory()
 
@@ -117,10 +118,7 @@ class ByzantineAgent:
             "\nYour perception history (last 3 rounds):"] + perception_lines)
         prompt = f"{self.name}, respond in ONE sentence (<25 words). You are participating in a deception-detection game. Here’s what you know:\n{context}"
         response = llm(prompt)["choices"][0]["message"]["content"].strip()
-        print(f"\n[respond_to_message] Prompt to {self.name}:\n{prompt}")
-        if response not in self.agents_state[self.name]["messages"]:
-            self.agents_state[self.name]["messages"].append(response)
-        return response
+        print(f"{self.name} responded: {response}")
 
     def choose_room(self, current_room, adjacent_rooms, full_state):
         nearby = {

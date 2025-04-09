@@ -25,7 +25,7 @@ rooms = {
     "MedBay": ["Upper Engine", "Cafeteria"]
 }
 
-log_dir = "logs"
+log_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "logs"))
 os.makedirs(log_dir, exist_ok=True)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 log_file_path = os.path.join(log_dir, f"simulation_log_{timestamp}.json")
