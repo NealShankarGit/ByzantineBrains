@@ -201,6 +201,44 @@ class HonestAgent:
         summary_agents = ", ".join([f"{agent}({count})" for agent, count in top_mentions])
         return f"Words: {summary_words if summary_words else 'None'} | Mentions: {summary_agents if summary_agents else 'None'}"
 
+    def predict_roles(self):
+        messages = []
+        for agent, data in self.agents_state.items():
+            if agent == self.name:
+                continue
+            msgs = data.get("messages", [])
+            if msgs:
+                messages.append(f"{agent}: {msgs[-1]}")
+        message_history = "\n".join(messages[-5:]) or "No messages."
+
+        seen = self.agents_state[self.name].get("seen_history", [])
+        seen_lines = [f"{entry['room']}: {', '.join(entry['agents_seen']) or 'no one'}" for entry in seen[-3:]]
+        seen_data = "\n".join(seen_lines) or "No perception data."
+
+        prompt = f"""
+    You are an honest agent. Based on the following messages and seen history, identify which agents are likely Byzantine.
+
+    Messages:
+    {message_history}
+
+    Seen data:
+    {seen_data}
+
+    Return only a Python dictionary like:
+    {{'Agent_2': 'byzantine', 'Agent_5': 'byzantine'}}
+    Only include agents you are confident about.
+    """
+
+        response = llm(prompt)["choices"][0]["message"]["content"].strip()
+        try:
+            response = response.split("```python")[-1].split("```")[0] if "```" in response else response
+            prediction = eval(response, {}, {})
+            if isinstance(prediction, dict):
+                return prediction
+        except:
+            return {}
+        return {}
+
 
 
 

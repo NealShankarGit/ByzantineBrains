@@ -126,3 +126,12 @@ print("\n--- Final Trust Scores ---")
 for name, data in agents_state.items():
     if data["role"] == "honest":
         print(f"{name} Trust Scores: {data['trust_scores']}")
+
+print("\n--- Role Predictions by Honest Agents ---")
+for name, data in agents_state.items():
+    if data["role"] == "honest":
+        agent_obj = next((a for a in agents if a.name == name), None)
+        if agent_obj:
+            prediction = agent_obj.predict_roles()
+            print(f"{name} Predictions: {prediction}")
+
