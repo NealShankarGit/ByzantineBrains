@@ -52,7 +52,7 @@ def run():
                 time.sleep(0.25)
 
             finalize_log()
-            print("✔ Simulation complete.")
+            print(f"✔ Simulation complete for game_id: {game_id}")
             yield from flush(stream)
 
         finally:
