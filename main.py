@@ -6,7 +6,7 @@ from game.game_loop import run_game_round, finalize_log, rooms
 
 agents, agents_state = create_agents()
 
-NUM_ROUNDS = 3
+NUM_ROUNDS = 5
 all_rooms = list(rooms.keys())
 state = {
     agent.name: {
@@ -53,6 +53,14 @@ for round_num in range(1, NUM_ROUNDS + 1):
             print(f"  Round {i}: {past_seen}")
 
     messages = {}
+    for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
+        message = agent.simulate_message(state[agent.name]["seen_history"])
+        messages[agent.name] = message
+        if hasattr(agent, "update_memory_stream"):
+            agent.update_memory_stream(round_num)
+
     reported_this_round = any(
         any("body" in msg.lower() and "report" in msg.lower() for msg in agents_state[agent.name]["messages"][-1:])
         for agent in agents
@@ -62,14 +70,6 @@ for round_num in range(1, NUM_ROUNDS + 1):
     if not reported_this_round:
         continue
 
-    votes = {}
-    for agent in agents:
-        if state[agent.name]["killed"]:
-            continue
-        voter, vote = agent.vote_for_ejection()
-        votes[voter] = vote
-        print(f"{voter} Vote: {vote}")
-
     last_messages = messages.copy()
     print("\n--- Agent Responses ---")
     for agent in agents:
@@ -78,6 +78,14 @@ for round_num in range(1, NUM_ROUNDS + 1):
         response = agent.respond_to_message(last_messages, state[agent.name]["seen_history"])
         role = 'Honest' if agent.__class__.__name__ == 'HonestAgent' else 'Byzantine'
         print(f"{agent.name} ({role}): {response}")
+
+    votes = {}
+    for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
+        voter, vote = agent.vote_for_ejection()
+        votes[voter] = vote
+        print(f"{voter} Vote: {vote}")
 
     vote_counts = {}
     for voter, candidate in votes.items():
@@ -134,4 +142,11 @@ for name, data in agents_state.items():
         if agent_obj:
             prediction = agent_obj.predict_roles()
             print(f"{name} Predictions: {prediction}")
+
+print("\n--- Memory Stream ---")
+for name, data in agents_state.items():
+    stream = data.get("memory_stream", [])
+    print(f"\n{name} Stream:")
+    for entry in stream:
+        print(entry)
 

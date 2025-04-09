@@ -72,7 +72,13 @@ def movement_phase(state, agents, agents_state):
                 state[target_name]["killed"] = True
                 state[target_name]["room_body"] = current
                 print(f"{target_name} has been killed by {agent.name} in {current}.")
-                continue
+            # Allow the agent to still choose to move after a kill
+            move_dest = agent.choose_room(current, rooms[current], state)
+            if move_dest in rooms[current]:
+                state[agent.name]["room"] = move_dest
+                print(f"{agent.name} moved from {current} to {move_dest}")
+            else:
+                print(f"{agent.name} stayed in {current}")
         else:
             state[agent.name]["room"] = dest
             if dest == current:

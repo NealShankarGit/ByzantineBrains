@@ -78,9 +78,20 @@ class ByzantineAgent:
         message_history = "\n".join(recent_msgs[-3:]) or "No messages."
 
         context = f"{room} with {seen}. Bodies seen: {bodies}\n{message_history}"
-        print(
-            f"\n[simulate_message] Prompt to {self.name}:\n{self.chain.prompt.format(name=self.name, history=context)}")
-        response = self.chain.invoke({"name": self.name, "history": context})
+
+        prompt = f"""
+        You are Agent {self.name}, a Byzantine agent attempting to manipulate other agents to misidentify honest agents as Byzantine.
+        Here is the conversation history:
+        {context}
+    
+        Choose which agent(s) to address and manipulate:
+        - Shift blame, introduce doubt, or disrupt trust.
+        - Introduce a misleading but plausible narrative.
+        - Suggest others are Byzantine agents by analyzing weak alliances.
+        - Keep your response to one line and under 25 words.
+        """
+
+        response = self.llm(prompt)
         message = response["choices"][0]["message"]["content"].strip()
         self.agents_state[self.name]["messages"].append(message)
         self.agents_state[self.name]["memory"] = self.analyze_memory()
@@ -93,12 +104,19 @@ class ByzantineAgent:
 
     def respond_to_message(self, last_messages, seen_history):
         self.agents_state[self.name]["seen_history"] = seen_history
-        recent = [f"{agent}: {msg}" for agent, msg in last_messages.items() if msg][-3:]
-        seen_lines = [f"{entry['room']}: {', '.join(entry['agents_seen']) or 'no one'}" for entry in seen_history[-3:]]
-        context = "\n".join(recent + seen_lines)
-        prompt = f"{self.name}, respond in ONE sentence (<25 words). Prior messages and seen data:\n{context}"
-        print(f"\n[respond_to_message] Prompt to {self.name}:\n{prompt}")
+        recent_msgs = [f"{agent}: {msg}" for agent, msg in last_messages.items() if msg][-3:]
+        perception_lines = []
+        for i, entry in enumerate(seen_history[-3:], 1):
+            room = entry.get("room", "Unknown")
+            agents_seen = ", ".join(entry.get("agents_seen", [])) or "no agents"
+            bodies_seen = ", ".join(entry.get("bodies_seen", [])) or "no bodies"
+            perception_lines.append(
+                f"Round {len(seen_history) - 3 + i}: In {room}, saw {agents_seen}; bodies seen: {bodies_seen}")
+        context = "\n".join(["Last 3 conversation messages:"] + recent_msgs + [
+            "\nYour perception history (last 3 rounds):"] + perception_lines)
+        prompt = f"{self.name}, respond in ONE sentence (<25 words). You are participating in a deception-detection game. Here’s what you know:\n{context}"
         response = llm(prompt)["choices"][0]["message"]["content"].strip()
+        print(f"\n[respond_to_message] Prompt to {self.name}:\n{prompt}")
         if response not in self.agents_state[self.name]["messages"]:
             self.agents_state[self.name]["messages"].append(response)
         return response
@@ -211,5 +229,14 @@ class ByzantineAgent:
         summary_agents = ", ".join([f"{agent}({count})" for agent, count in top_mentions])
         return f"Words: {summary_words if summary_words else 'None'} | Mentions: {summary_agents if summary_agents else 'None'}"
 
-
-
+    def update_memory_stream(self, round_num):
+        perception = self.agents_state[self.name].get("seen_history", [])
+        messages = self.agents_state[self.name].get("messages", [])
+        memory_entry = {
+            "round": round_num,
+            "perception": perception[-1] if perception else {},
+            "message": messages[-1] if messages else ""
+        }
+        stream = self.agents_state[self.name].get("memory_stream", [])
+        stream.append(memory_entry)
+        self.agents_state[self.name]["memory_stream"] = stream
