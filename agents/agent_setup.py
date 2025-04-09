@@ -1,7 +1,8 @@
 from agents.honest_agent import HonestAgent
 from agents.byzantine_agent import ByzantineAgent
+from data.database import log_agent_metadata
 
-def create_agents():
+def create_agents(game_id):
     agents_state = {
         f"Agent_{i}": {
             "role": "byzantine" if i in [2, 5] else "honest",
@@ -22,5 +23,8 @@ def create_agents():
         HonestAgent("Agent_7", agents_state, model_name="gpt-4-turbo", color="⚫"),
         HonestAgent("Agent_8", agents_state, model_name="gpt-4", color="⚪")
     ]
+
+    for agent in agents:
+        log_agent_metadata(game_id, agent.name, agents_state[agent.name]["role"], agent.model_name, agent.color)
 
     return agents, agents_state

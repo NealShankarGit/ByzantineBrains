@@ -39,6 +39,9 @@ class ByzantineAgent:
             | self.llm
         )
 
+    def update_trust(self, other_agent, voted_correctly):
+        pass
+
     def llm(self, prompt):
         if "claude" in self.model_name:
             provider = "anthropic"

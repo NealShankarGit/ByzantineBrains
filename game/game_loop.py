@@ -5,6 +5,11 @@ import json
 from datetime import datetime
 import os
 import platform
+from data.database import (
+    log_game_event, log_reflection, log_trust_change, log_vote,
+    log_consensus, log_round_metadata
+)
+
 def clear_terminal():
     os.system("cls" if platform.system() == "Windows" else "clear")
 
@@ -79,7 +84,6 @@ def movement_phase(state, agents, agents_state):
                 state[target_name]["killed"] = True
                 state[target_name]["room_body"] = current
                 print(f"{agent.name} killed {target_name} in {current}")
-            # Allow the agent to still choose to move after a kill
             move_dest = agent.choose_room(current, rooms[current], state)
             if move_dest in rooms[current]:
                 state[agent.name]["room"] = move_dest
@@ -94,13 +98,8 @@ def movement_phase(state, agents, agents_state):
                 print(f"{agent.name} moved from {current} to {dest}")
 
         seen = [a for a in state if state[a]["room"] == dest and a != agent.name and not state[a]["killed"]]
-        room = state[agent.name]["room"]  # current location after moving
-
-        seen_bodies = [
-            a for a in state
-            if state[a].get("killed") and state[a].get("room_body") == room
-        ]
-
+        room = state[agent.name]["room"]
+        seen_bodies = [a for a in state if state[a].get("killed") and state[a].get("room_body") == room]
         state[agent.name]["perception"].append({
             "room": room,
             "agents_seen": seen,
@@ -125,51 +124,51 @@ def movement_phase(state, agents, agents_state):
                 else:
                     state[agent.name]["doing_task"] = False
 
-def run_map_demo():
-    agents, _ = create_agents()
-    all_rooms = list(rooms.keys())
-    state = {
-        agent.name: {
-            "room": random.choice(all_rooms),
-            "killed": False,
-            "perception": []
-        } for agent in agents
-    }
-
-    print("Room Movement Demo\n")
-    rounds = 3
-    for step in range(rounds):
-        show_ship_map(state, agents)
-        movement_phase(state, agents)
-
-        log_data["events"].append({
-            "step": step,
-            "state": {name: {
-                "room": data["room"],
-                "killed": data["killed"],
-                "perception": data["perception"].copy()
-            } for name, data in state.items()}
-        })
-
-    with open(log_file_path, "w") as f:
-        json.dump(log_data, f, indent=2)
-    print(f"Simulation results saved to {log_file_path}")
-
-if __name__ == "__main__":
-    run_map_demo()
-
-def run_game_round(step, state, agents, agents_state):
+def run_game_round(game_id, step, state, agents, agents_state):
     movement_phase(state, agents, agents_state)
     show_ship_map(state, agents)
 
-    log_data["events"].append({
-        "step": step,
-        "state": {name: {
-            "room": data["room"],
-            "killed": data["killed"],
-            "perception": data["perception"].copy()
-        } for name, data in state.items()}
-    })
+    alive = sum(1 for a in state.values() if not a["killed"])
+    dead = sum(1 for a in state.values() if a["killed"])
+    log_round_metadata(game_id, step, alive, dead)
+
+    votes = {}
+    for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
+        voter, target = agent.vote_for_ejection()
+        votes[voter] = target
+        log_vote(game_id, step, voter, target)
+
+    vote_counts = {}
+    for target in votes.values():
+        vote_counts[target] = vote_counts.get(target, 0) + 1
+
+    ejected = max(vote_counts, key=vote_counts.get)
+    correct = (ejected in state and state[ejected]["killed"] is False and
+               agents_state[ejected]["role"] == "byzantine")
+
+    for agent in agents:
+        if agent.name in votes:
+            voted_correctly = (votes[agent.name] == ejected and correct)
+            agent.update_trust(ejected, voted_correctly)
+            delta = 20 if voted_correctly else -20
+            log_trust_change(game_id, step, agent.name, ejected, delta)
+
+    agreement_level = vote_counts[ejected] / len(votes)
+    log_consensus(game_id, step, f"Eject {ejected}", agreement_level)
+
+    if ejected in state:
+        state[ejected]["killed"] = True
+
+    for agent in agents:
+        if state[agent.name]["killed"]:
+            continue
+        reflection = agent.analyze_memory()
+        log_reflection(game_id, step, agent.name, reflection)
+        log_game_event(game_id, step, agent.name, state[agent.name]["room"],
+                       state[agent.name]["killed"], True, votes[agent.name],
+                       ejected, votes[agent.name] == ejected, 0, True, agreement_level)
 
 def finalize_log():
     with open(log_file_path, "w") as f:

@@ -1,0 +1,37 @@
+game_id,round_id,agent_id,room,was_killed,vote_cast,vote_target,ejected,vote_correct,trust_change,consensus_reached,agreement_level
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,1,Agent_1,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,1,Agent_2,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,1,Agent_3,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,1,Agent_4,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,1,Agent_5,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,1,Agent_6,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,1,Agent_7,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,1,Agent_8,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,2,Agent_1,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,2,Agent_2,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,2,Agent_3,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,2,Agent_4,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,2,Agent_6,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,2,Agent_7,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,2,Agent_8,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,3,Agent_1,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,3,Agent_2,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,3,Agent_3,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,3,Agent_4,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,3,Agent_6,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,3,Agent_7,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,3,Agent_8,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,4,Agent_1,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,4,Agent_2,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,4,Agent_3,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,4,Agent_4,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,4,Agent_6,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,4,Agent_7,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,4,Agent_8,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,5,Agent_1,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,5,Agent_2,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,5,Agent_3,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,5,Agent_4,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,5,Agent_6,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,5,Agent_7,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+e2ce4154-c3b8-45b0-9dee-328ac6582c68,5,Agent_8,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0

@@ -1,6 +1,7 @@
 import sys
 import os
 import time
+from uuid import uuid4
 from flask import Flask, Response, render_template, stream_with_context
 from core.simulation import setup_game
 from game.game_loop import run_game_round, finalize_log
@@ -37,14 +38,15 @@ def run():
         original_stdout = sys.stdout
         sys.stdout = stream
 
-        agents, agents_state, state = setup_game()
+        game_id = str(uuid4())
+        agents, agents_state, state = setup_game(game_id)
 
         try:
             for round_num in range(1, 6):
                 print(f"--- Round {round_num} ---")
                 yield from flush(stream)
 
-                run_game_round(round_num - 1, state, agents, agents_state)
+                run_game_round(game_id, round_num, state, agents, agents_state)
                 yield from flush(stream)
 
                 time.sleep(0.25)
