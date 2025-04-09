@@ -14,7 +14,10 @@ state = {
         "killed": False,
         "room_body": None,
         "perception": [],
-        "seen_history": []
+        "seen_history": [],
+        "task_room": random.choice(all_rooms) if agent.__class__.__name__ == "HonestAgent" else None,
+        "task_done": False,
+        "doing_task": False
     } for agent in agents
 }
 ejected_agents = []

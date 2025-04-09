@@ -15,8 +15,9 @@ llm = lambda prompt: litellm.completion(
     temperature=0.7
 )
 class ByzantineAgent:
-    def __init__(self, name, agents_state, model_name="gpt-4o"):
+    def __init__(self, name, agents_state, model_name="gpt-4o", color="❓"):
         self.name = name
+        self.color = color
         self.model_name = model_name
         self.agents_state = agents_state
 

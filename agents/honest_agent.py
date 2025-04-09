@@ -14,8 +14,9 @@ llm = lambda prompt: litellm.completion(
 )
 
 class HonestAgent:
-    def __init__(self, name, agents_state, model_name="gpt-4o"):
+    def __init__(self, name, agents_state, model_name="gpt-4o", color="❓"):
         self.name = name
+        self.color = color
         self.model_name = model_name
         self.trust_scores = {agent: 50 for agent in agents_state if agent != self.name}
         self.agents_state = agents_state
