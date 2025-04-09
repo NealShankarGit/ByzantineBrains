@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ByzantineBrains</title>
+    <style>
+        body { background: #000; color: #0f0; font-family: monospace; padding: 2em; }
+        button { font-size: 1.1em; padding: 0.5em 1em; margin-bottom: 1em; }
+        #output { border: 1px solid #0f0; padding: 1em; max-height: 80vh; overflow-y: auto; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>ByzantineBrains Simulation</h1>
+    <button onclick="start()">▶ Run Simulation</button>
+    <div id="output"></div>
+    <script>
+        function start() {
+            const out = document.getElementById("output");
+            out.innerHTML = "";
+            const source = new EventSource("/run");
+            source.onmessage = function(event) {
+                out.innerHTML += event.data + "\\n";
+                out.scrollTop = out.scrollHeight;
+            };
+            source.onmessage = function(event) {
+                if (event.data === "[DONE]") {
+                    source.close();
+                    return;
+                }
+                out.textContent += event.data + "\n";
+                out.scrollTop = out.scrollHeight;
+            };
+        }
+    </script>
+</body>
+</html>
