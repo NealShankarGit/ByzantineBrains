@@ -124,51 +124,95 @@ def movement_phase(state, agents, agents_state):
                 else:
                     state[agent.name]["doing_task"] = False
 
+import sys
+
 def run_game_round(game_id, step, state, agents, agents_state):
     movement_phase(state, agents, agents_state)
     show_ship_map(state, agents)
+    sys.stdout.flush()
 
     alive = sum(1 for a in state.values() if not a["killed"])
     dead = sum(1 for a in state.values() if a["killed"])
     log_round_metadata(game_id, step, alive, dead)
 
-    votes = {}
-    for agent in agents:
-        if state[agent.name]["killed"]:
-            continue
-        voter, target = agent.vote_for_ejection()
-        votes[voter] = target
-        log_vote(game_id, step, voter, target)
+    messages = {}
 
-    vote_counts = {}
-    for target in votes.values():
-        vote_counts[target] = vote_counts.get(target, 0) + 1
+    any_body_seen = any(
+        agent_state["perception"]
+        and len(agent_state["perception"][-1].get("bodies_seen", [])) > 0
+        for agent_state in state.values()
+        if not agent_state["killed"]
+    )
 
-    ejected = max(vote_counts, key=vote_counts.get)
-    correct = (ejected in state and state[ejected]["killed"] is False and
-               agents_state[ejected]["role"] == "byzantine")
+    if any_body_seen:
+        print(f"\n--- DISCUSSION (Round {step}) ---")
+        sys.stdout.flush()
+        messages = {}
+        for agent in agents:
+            if state[agent.name]["killed"]:
+                continue
+            history = state[agent.name].get("perception", [])
+            message = agent.simulate_message(history)
+            sys.stdout.flush()
+            if message:
+                messages[agent.name] = message
+                log_reflection(game_id, step, agent.name, message)
 
-    for agent in agents:
-        if agent.name in votes:
-            voted_correctly = (votes[agent.name] == ejected and correct)
-            agent.update_trust(ejected, voted_correctly)
-            delta = 20 if voted_correctly else -20
-            log_trust_change(game_id, step, agent.name, ejected, delta)
+        for agent in agents:
+            if state[agent.name]["killed"]:
+                continue
+            response = agent.respond_to_message(messages, state[agent.name].get("perception", []))
+            sys.stdout.flush()
+            if response:
+                log_reflection(game_id, step, agent.name, response)
 
-    agreement_level = vote_counts[ejected] / len(votes)
-    log_consensus(game_id, step, f"Eject {ejected}", agreement_level)
+        print(f"\n--- VOTING (Round {step}) ---")
+        sys.stdout.flush()
+        votes = {}
+        for agent in agents:
+            if state[agent.name]["killed"]:
+                continue
+            voter, target = agent.vote_for_ejection()
+            votes[voter] = target
+            log_vote(game_id, step, voter, target)
+            print(f"{voter} voted to eject {target}")
+            sys.stdout.flush()
 
-    if ejected in state:
-        state[ejected]["killed"] = True
+        vote_counts = {}
+        for target in votes.values():
+            vote_counts[target] = vote_counts.get(target, 0) + 1
 
-    for agent in agents:
-        if state[agent.name]["killed"]:
-            continue
-        reflection = agent.analyze_memory()
-        log_reflection(game_id, step, agent.name, reflection)
-        log_game_event(game_id, step, agent.name, state[agent.name]["room"],
-                       state[agent.name]["killed"], True, votes[agent.name],
-                       ejected, votes[agent.name] == ejected, 0, True, agreement_level)
+        ejected = max(vote_counts, key=vote_counts.get)
+        agreement_level = vote_counts[ejected] / len(votes)
+
+        if ejected in agents_state:
+            correct = (not state[ejected]["killed"] and agents_state[ejected]["role"] == "byzantine")
+            print(f"\nEjected: {ejected}")
+            print(f"Vote {'correct' if correct else 'incorrect'} — Role was: {agents_state[ejected]['role']}")
+            print(f"Consensus Agreement Level: {agreement_level:.2f}")
+            sys.stdout.flush()
+            state[ejected]["killed"] = True
+        else:
+            correct = False
+            print(f"\nNo one was ejected.")
+            print(f"Consensus Agreement Level: {agreement_level:.2f}")
+            sys.stdout.flush()
+
+        log_consensus(game_id, step, f"Eject {ejected}", agreement_level)
+
+        for agent in agents:
+            if agent.name in votes:
+                voted_correctly = (votes[agent.name] == ejected and correct)
+                agent.update_trust(ejected, voted_correctly)
+                delta = 20 if voted_correctly else -20
+                log_trust_change(game_id, step, agent.name, ejected, delta)
+
+        for agent in agents:
+            if state[agent.name]["killed"]:
+                continue
+            log_game_event(game_id, step, agent.name, state[agent.name]["room"],
+                           state[agent.name]["killed"], True, votes[agent.name],
+                           ejected, votes[agent.name] == ejected, 0, True, agreement_level)
 
 def finalize_log():
     with open(log_file_path, "w") as f:

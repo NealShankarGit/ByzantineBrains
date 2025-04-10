@@ -36,3 +36,381 @@ c6c045d2-fe57-4c29-b767-793eeac4ac99,5,Agent_4,Navigation,False,True,Agent_1,Age
 c6c045d2-fe57-4c29-b767-793eeac4ac99,5,Agent_6,Shields,False,True,Agent_1,Agent_1,True,0,True,0.8571428571428571
 c6c045d2-fe57-4c29-b767-793eeac4ac99,5,Agent_7,Electrical,False,True,Agent_1,Agent_1,True,0,True,0.8571428571428571
 c6c045d2-fe57-4c29-b767-793eeac4ac99,5,Agent_8,Navigation,False,True,Agent_1,Agent_1,True,0,True,0.8571428571428571
+14db9558-bc35-4a89-b577-b9f50fb5d861,1,Agent_1,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,1,Agent_2,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,1,Agent_3,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,1,Agent_4,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,1,Agent_5,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,1,Agent_6,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,1,Agent_7,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,1,Agent_8,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,2,Agent_1,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,2,Agent_2,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,2,Agent_3,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,2,Agent_4,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,2,Agent_5,Weapons,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,2,Agent_6,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,2,Agent_7,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,2,Agent_8,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,3,Agent_1,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,3,Agent_2,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,3,Agent_3,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,3,Agent_4,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,3,Agent_5,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,3,Agent_6,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,3,Agent_7,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,3,Agent_8,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+14db9558-bc35-4a89-b577-b9f50fb5d861,4,Agent_1,Cafeteria,False,True,Agent_6,Agent_8,False,0,True,0.5714285714285714
+14db9558-bc35-4a89-b577-b9f50fb5d861,4,Agent_2,Admin,False,True,Agent_6,Agent_8,False,0,True,0.5714285714285714
+14db9558-bc35-4a89-b577-b9f50fb5d861,4,Agent_3,Communications,False,True,Agent_6,Agent_8,False,0,True,0.5714285714285714
+14db9558-bc35-4a89-b577-b9f50fb5d861,4,Agent_4,Storage,False,True,Agent_8,Agent_8,True,0,True,0.5714285714285714
+14db9558-bc35-4a89-b577-b9f50fb5d861,4,Agent_5,Cafeteria,False,True,Agent_8,Agent_8,True,0,True,0.5714285714285714
+14db9558-bc35-4a89-b577-b9f50fb5d861,4,Agent_6,Admin,False,True,Agent_8,Agent_8,True,0,True,0.5714285714285714
+14db9558-bc35-4a89-b577-b9f50fb5d861,5,Agent_1,Admin,False,True,Agent_6,Agent_6,True,0,True,0.6666666666666666
+14db9558-bc35-4a89-b577-b9f50fb5d861,5,Agent_2,Admin,False,True,Agent_1,Agent_6,False,0,True,0.6666666666666666
+14db9558-bc35-4a89-b577-b9f50fb5d861,5,Agent_3,Communications,False,True,Agent_1,Agent_6,False,0,True,0.6666666666666666
+14db9558-bc35-4a89-b577-b9f50fb5d861,5,Agent_4,Storage,False,True,Agent_6,Agent_6,True,0,True,0.6666666666666666
+14db9558-bc35-4a89-b577-b9f50fb5d861,5,Agent_5,Cafeteria,False,True,Agent_6,Agent_6,True,0,True,0.6666666666666666
+6a5f6081-91c4-47ef-ad64-53e1adc5500e,1,Agent_1,Weapons,False,True,No Ejection,No Ejection,True,0,True,1.0
+6a5f6081-91c4-47ef-ad64-53e1adc5500e,1,Agent_2,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+6a5f6081-91c4-47ef-ad64-53e1adc5500e,1,Agent_3,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+6a5f6081-91c4-47ef-ad64-53e1adc5500e,1,Agent_4,Weapons,False,True,No Ejection,No Ejection,True,0,True,1.0
+6a5f6081-91c4-47ef-ad64-53e1adc5500e,1,Agent_5,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+6a5f6081-91c4-47ef-ad64-53e1adc5500e,1,Agent_7,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+6a5f6081-91c4-47ef-ad64-53e1adc5500e,1,Agent_8,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+4a75417f-6f78-4a78-ae49-8953b17fd748,1,Agent_1,O2,False,True,Agent_5,Agent_5,True,0,True,1.0
+4a75417f-6f78-4a78-ae49-8953b17fd748,1,Agent_2,Storage,False,True,Agent_5,Agent_5,True,0,True,1.0
+4a75417f-6f78-4a78-ae49-8953b17fd748,1,Agent_3,Admin,False,True,Agent_5,Agent_5,True,0,True,1.0
+4a75417f-6f78-4a78-ae49-8953b17fd748,1,Agent_4,Electrical,False,True,Agent_5,Agent_5,True,0,True,1.0
+4a75417f-6f78-4a78-ae49-8953b17fd748,1,Agent_6,Cafeteria,False,True,Agent_5,Agent_5,True,0,True,1.0
+4a75417f-6f78-4a78-ae49-8953b17fd748,1,Agent_7,Communications,False,True,Agent_5,Agent_5,True,0,True,1.0
+4a75417f-6f78-4a78-ae49-8953b17fd748,1,Agent_8,Storage,False,True,Agent_5,Agent_5,True,0,True,1.0
+d9202a45-37f9-4608-8a39-22d0e8c452c1,1,Agent_1,Cafeteria,False,True,Agent_4,Agent_4,True,0,True,1.0
+d9202a45-37f9-4608-8a39-22d0e8c452c1,1,Agent_2,Navigation,False,True,Agent_4,Agent_4,True,0,True,1.0
+d9202a45-37f9-4608-8a39-22d0e8c452c1,1,Agent_3,Electrical,False,True,Agent_4,Agent_4,True,0,True,1.0
+d9202a45-37f9-4608-8a39-22d0e8c452c1,1,Agent_5,Weapons,False,True,Agent_4,Agent_4,True,0,True,1.0
+d9202a45-37f9-4608-8a39-22d0e8c452c1,1,Agent_6,Navigation,False,True,Agent_4,Agent_4,True,0,True,1.0
+d9202a45-37f9-4608-8a39-22d0e8c452c1,1,Agent_7,Cafeteria,False,True,Agent_4,Agent_4,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,1,Agent_1,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,1,Agent_2,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,1,Agent_3,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,1,Agent_4,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,1,Agent_5,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,1,Agent_6,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,1,Agent_7,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,1,Agent_8,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,2,Agent_1,O2,False,True,Agent_3,Agent_3,True,0,True,0.7142857142857143
+747297de-eb06-468e-8230-4c786166d370,2,Agent_2,O2,False,True,Agent_5,Agent_3,False,0,True,0.7142857142857143
+747297de-eb06-468e-8230-4c786166d370,2,Agent_4,Admin,False,True,Agent_3,Agent_3,True,0,True,0.7142857142857143
+747297de-eb06-468e-8230-4c786166d370,2,Agent_5,Lower Engine,False,True,Agent_4,Agent_3,False,0,True,0.7142857142857143
+747297de-eb06-468e-8230-4c786166d370,2,Agent_6,O2,False,True,Agent_3,Agent_3,True,0,True,0.7142857142857143
+747297de-eb06-468e-8230-4c786166d370,2,Agent_7,Shields,False,True,Agent_3,Agent_3,True,0,True,0.7142857142857143
+747297de-eb06-468e-8230-4c786166d370,3,Agent_1,Cafeteria,False,True,Agent_5,Agent_6,False,0,True,0.4
+747297de-eb06-468e-8230-4c786166d370,3,Agent_2,O2,False,True,Agent_6,Agent_6,True,0,True,0.4
+747297de-eb06-468e-8230-4c786166d370,3,Agent_4,Admin,False,True,Agent_3,Agent_6,False,0,True,0.4
+747297de-eb06-468e-8230-4c786166d370,3,Agent_5,Lower Engine,False,True,Agent_6,Agent_6,True,0,True,0.4
+747297de-eb06-468e-8230-4c786166d370,3,Agent_7,Shields,False,True,Agent_3,Agent_6,False,0,True,0.4
+747297de-eb06-468e-8230-4c786166d370,4,Agent_1,Admin,False,True,Agent_4,Agent_4,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,4,Agent_2,O2,False,True,Agent_4,Agent_4,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,4,Agent_5,Lower Engine,False,True,Agent_4,Agent_4,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,4,Agent_7,Shields,False,True,Agent_4,Agent_4,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,5,Agent_1,Cafeteria,False,True,Agent_4,Agent_4,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,5,Agent_2,O2,False,True,Agent_4,Agent_4,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,5,Agent_5,Lower Engine,False,True,Agent_4,Agent_4,True,0,True,1.0
+747297de-eb06-468e-8230-4c786166d370,5,Agent_7,Shields,False,True,Agent_4,Agent_4,True,0,True,1.0
+ce573ea7-0588-4235-9836-c8542df5661f,1,Agent_1,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+ce573ea7-0588-4235-9836-c8542df5661f,1,Agent_2,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+ce573ea7-0588-4235-9836-c8542df5661f,1,Agent_3,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+ce573ea7-0588-4235-9836-c8542df5661f,1,Agent_4,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+ce573ea7-0588-4235-9836-c8542df5661f,1,Agent_5,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+ce573ea7-0588-4235-9836-c8542df5661f,1,Agent_6,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+ce573ea7-0588-4235-9836-c8542df5661f,1,Agent_7,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+ce573ea7-0588-4235-9836-c8542df5661f,1,Agent_8,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,1,Agent_1,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,1,Agent_2,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,1,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,1,Agent_4,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,1,Agent_5,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,1,Agent_6,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,1,Agent_7,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,1,Agent_8,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,2,Agent_1,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,2,Agent_2,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,2,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,2,Agent_4,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,2,Agent_5,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,2,Agent_6,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,2,Agent_7,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,2,Agent_8,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,3,Agent_1,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,3,Agent_2,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,3,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,3,Agent_4,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,3,Agent_5,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,3,Agent_6,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,3,Agent_7,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,3,Agent_8,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,4,Agent_1,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,4,Agent_2,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,4,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,4,Agent_4,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,4,Agent_5,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,4,Agent_6,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,4,Agent_7,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,4,Agent_8,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,5,Agent_1,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,5,Agent_2,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,5,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,5,Agent_4,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,5,Agent_5,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,5,Agent_6,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,5,Agent_7,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+757680e0-2063-4d92-bcc5-130bdba843fb,5,Agent_8,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,1,Agent_1,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,1,Agent_2,Electrical,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,1,Agent_3,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,1,Agent_4,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,1,Agent_5,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,1,Agent_6,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,1,Agent_7,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,1,Agent_8,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,2,Agent_1,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,2,Agent_2,Electrical,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,2,Agent_3,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,2,Agent_4,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,2,Agent_5,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,2,Agent_6,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,2,Agent_7,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,2,Agent_8,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,3,Agent_1,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,3,Agent_2,Electrical,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,3,Agent_3,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,3,Agent_4,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,3,Agent_5,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,3,Agent_6,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,3,Agent_7,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,3,Agent_8,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,4,Agent_1,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,4,Agent_2,Electrical,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,4,Agent_3,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,4,Agent_4,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,4,Agent_5,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,4,Agent_6,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,4,Agent_7,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+39ceb7f2-a20c-4520-8ebf-d131ef0507a1,4,Agent_8,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+397aa38d-a2ce-45b9-bdc0-59fae10782ce,1,Agent_1,Navigation,False,True,Agent_5,Agent_5,True,0,True,0.5714285714285714
+397aa38d-a2ce-45b9-bdc0-59fae10782ce,1,Agent_2,Electrical,False,True,Agent_5,Agent_5,True,0,True,0.5714285714285714
+397aa38d-a2ce-45b9-bdc0-59fae10782ce,1,Agent_3,Admin,False,True,Agent_3,Agent_5,False,0,True,0.5714285714285714
+397aa38d-a2ce-45b9-bdc0-59fae10782ce,1,Agent_4,Lower Engine,False,True,Agent_5,Agent_5,True,0,True,0.5714285714285714
+397aa38d-a2ce-45b9-bdc0-59fae10782ce,1,Agent_7,Shields,False,True,Agent_3,Agent_5,False,0,True,0.5714285714285714
+397aa38d-a2ce-45b9-bdc0-59fae10782ce,1,Agent_8,Shields,False,True,Agent_3,Agent_5,False,0,True,0.5714285714285714
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,1,Agent_1,Security,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,1,Agent_2,Communications,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,1,Agent_3,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,1,Agent_4,Security,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,1,Agent_5,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,1,Agent_6,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,1,Agent_7,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,1,Agent_8,Security,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,2,Agent_1,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,2,Agent_2,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,2,Agent_3,MedBay,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,2,Agent_4,Security,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,2,Agent_5,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,2,Agent_6,Reactor,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,2,Agent_7,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+bbd579f0-c4f6-4ba6-8ffe-2a09934ff4e5,2,Agent_8,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,1,Agent_1,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,1,Agent_2,Weapons,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,1,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,1,Agent_4,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,1,Agent_5,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,1,Agent_6,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,1,Agent_7,Security,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,1,Agent_8,Security,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,2,Agent_1,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,2,Agent_2,O2,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,2,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,2,Agent_4,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,2,Agent_5,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,2,Agent_6,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,2,Agent_7,Security,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,2,Agent_8,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,3,Agent_1,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,3,Agent_2,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,3,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,3,Agent_4,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,3,Agent_5,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,3,Agent_6,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,3,Agent_7,Security,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,3,Agent_8,Storage,False,True,No Ejection,No Ejection,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,4,Agent_1,Cafeteria,False,True,Agent_2,Agent_2,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,4,Agent_3,Shields,False,True,Agent_2,Agent_2,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,4,Agent_4,Storage,False,True,Agent_2,Agent_2,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,4,Agent_5,Cafeteria,False,True,Agent_2,Agent_2,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,4,Agent_7,Upper Engine,False,True,Agent_2,Agent_2,True,0,True,1.0
+d50f029d-4c6a-49a2-9732-4829c457648e,4,Agent_8,Shields,False,True,Agent_2,Agent_2,True,0,True,1.0
+9f262937-d054-4396-a7fa-02e1827544a9,1,Agent_2,Navigation,False,True,No Ejection,No Ejection,True,0,True,1.0
+9f262937-d054-4396-a7fa-02e1827544a9,1,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,1.0
+9f262937-d054-4396-a7fa-02e1827544a9,1,Agent_4,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+9f262937-d054-4396-a7fa-02e1827544a9,1,Agent_5,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+9f262937-d054-4396-a7fa-02e1827544a9,1,Agent_6,Admin,False,True,No Ejection,No Ejection,True,0,True,1.0
+9f262937-d054-4396-a7fa-02e1827544a9,1,Agent_7,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,1.0
+9f262937-d054-4396-a7fa-02e1827544a9,1,Agent_8,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,1.0
+9f262937-d054-4396-a7fa-02e1827544a9,2,Agent_2,Navigation,False,True,No Ejection,Agent_8,False,0,True,0.8571428571428571
+9f262937-d054-4396-a7fa-02e1827544a9,2,Agent_3,Shields,False,True,Agent_8,Agent_8,True,0,True,0.8571428571428571
+9f262937-d054-4396-a7fa-02e1827544a9,2,Agent_4,Admin,False,True,Agent_8,Agent_8,True,0,True,0.8571428571428571
+9f262937-d054-4396-a7fa-02e1827544a9,2,Agent_5,Cafeteria,False,True,Agent_8,Agent_8,True,0,True,0.8571428571428571
+9f262937-d054-4396-a7fa-02e1827544a9,2,Agent_6,Cafeteria,False,True,Agent_8,Agent_8,True,0,True,0.8571428571428571
+9f262937-d054-4396-a7fa-02e1827544a9,2,Agent_7,Security,False,True,Agent_8,Agent_8,True,0,True,0.8571428571428571
+9f262937-d054-4396-a7fa-02e1827544a9,3,Agent_2,Navigation,False,True,Agent_8,Agent_8,True,0,True,0.8333333333333334
+9f262937-d054-4396-a7fa-02e1827544a9,3,Agent_3,Shields,False,True,Agent_8,Agent_8,True,0,True,0.8333333333333334
+9f262937-d054-4396-a7fa-02e1827544a9,3,Agent_4,Admin,False,True,Agent_6,Agent_8,False,0,True,0.8333333333333334
+9f262937-d054-4396-a7fa-02e1827544a9,3,Agent_5,Navigation,False,True,Agent_8,Agent_8,True,0,True,0.8333333333333334
+9f262937-d054-4396-a7fa-02e1827544a9,3,Agent_6,Navigation,False,True,Agent_8,Agent_8,True,0,True,0.8333333333333334
+9f262937-d054-4396-a7fa-02e1827544a9,3,Agent_7,Security,False,True,Agent_8,Agent_8,True,0,True,0.8333333333333334
+9f262937-d054-4396-a7fa-02e1827544a9,4,Agent_2,Navigation,False,True,Agent_8,Agent_8,True,0,True,0.5
+9f262937-d054-4396-a7fa-02e1827544a9,4,Agent_3,Shields,False,True,Agent_6,Agent_8,False,0,True,0.5
+9f262937-d054-4396-a7fa-02e1827544a9,4,Agent_4,Admin,False,True,Agent_8,Agent_8,True,0,True,0.5
+9f262937-d054-4396-a7fa-02e1827544a9,4,Agent_5,O2,False,True,Agent_8,Agent_8,True,0,True,0.5
+9f262937-d054-4396-a7fa-02e1827544a9,4,Agent_6,O2,False,True,Agent_6,Agent_8,False,0,True,0.5
+9f262937-d054-4396-a7fa-02e1827544a9,4,Agent_7,Security,False,True,Agent_6,Agent_8,False,0,True,0.5
+9f262937-d054-4396-a7fa-02e1827544a9,5,Agent_2,Navigation,False,True,Agent_8,Agent_8,True,0,True,0.6
+9f262937-d054-4396-a7fa-02e1827544a9,5,Agent_3,Shields,False,True,Agent_6,Agent_8,False,0,True,0.6
+9f262937-d054-4396-a7fa-02e1827544a9,5,Agent_4,Admin,False,True,Agent_6,Agent_8,False,0,True,0.6
+9f262937-d054-4396-a7fa-02e1827544a9,5,Agent_5,O2,False,True,Agent_8,Agent_8,True,0,True,0.6
+9f262937-d054-4396-a7fa-02e1827544a9,5,Agent_7,Reactor,False,True,Agent_8,Agent_8,True,0,True,0.6
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,2,Agent_1,Security,False,True,Agent_8,Agent_8,True,0,True,0.7142857142857143
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,2,Agent_2,Lower Engine,False,True,Agent_7,Agent_8,False,0,True,0.7142857142857143
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,2,Agent_3,Security,False,True,Agent_8,Agent_8,True,0,True,0.7142857142857143
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,2,Agent_4,Shields,False,True,Agent_8,Agent_8,True,0,True,0.7142857142857143
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,2,Agent_5,Upper Engine,False,True,Agent_5,Agent_8,False,0,True,0.7142857142857143
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,2,Agent_7,Electrical,False,True,Agent_8,Agent_8,True,0,True,0.7142857142857143
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,3,Agent_2,Lower Engine,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,3,Agent_3,Security,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,3,Agent_4,Shields,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,3,Agent_5,Upper Engine,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,3,Agent_7,Electrical,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,4,Agent_2,Lower Engine,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,4,Agent_3,Security,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,4,Agent_4,Shields,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,4,Agent_5,Upper Engine,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,4,Agent_7,Electrical,False,True,Agent_8,Agent_8,True,0,True,1.0
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,5,Agent_2,Lower Engine,False,True,Agent_8,Agent_8,True,0,True,0.8
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,5,Agent_3,Security,False,True,Agent_8,Agent_8,True,0,True,0.8
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,5,Agent_4,Shields,False,True,Agent_8,Agent_8,True,0,True,0.8
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,5,Agent_5,Upper Engine,False,True,Agent_4,Agent_8,False,0,True,0.8
+2ec14298-4eae-4c3b-9f1d-8b34da77a5cc,5,Agent_7,Electrical,False,True,Agent_8,Agent_8,True,0,True,0.8
+cba7e4c7-6cf8-426e-83db-581aec555afa,1,Agent_1,Cafeteria,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,1,Agent_2,Communications,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,1,Agent_3,Navigation,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,1,Agent_6,Cafeteria,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,1,Agent_7,Navigation,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,1,Agent_8,Reactor,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,2,Agent_1,Navigation,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,2,Agent_2,Communications,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,2,Agent_3,Navigation,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,2,Agent_6,Navigation,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,2,Agent_7,Navigation,False,True,Agent_5,Agent_5,True,0,True,1.0
+cba7e4c7-6cf8-426e-83db-581aec555afa,2,Agent_8,Reactor,False,True,Agent_5,Agent_5,True,0,True,1.0
+86137ee6-7683-4a8e-a64e-eda240cf3884,1,Agent_1,Lower Engine,False,True,Agent_3,Agent_3,True,0,True,0.5714285714285714
+86137ee6-7683-4a8e-a64e-eda240cf3884,1,Agent_2,Admin,False,True,Agent_8,Agent_3,False,0,True,0.5714285714285714
+86137ee6-7683-4a8e-a64e-eda240cf3884,1,Agent_4,Lower Engine,False,True,Agent_3,Agent_3,True,0,True,0.5714285714285714
+86137ee6-7683-4a8e-a64e-eda240cf3884,1,Agent_5,Electrical,False,True,Agent_8,Agent_3,False,0,True,0.5714285714285714
+86137ee6-7683-4a8e-a64e-eda240cf3884,1,Agent_7,Shields,False,True,Agent_3,Agent_3,True,0,True,0.5714285714285714
+86137ee6-7683-4a8e-a64e-eda240cf3884,1,Agent_8,Shields,False,True,Agent_3,Agent_3,True,0,True,0.5714285714285714
+dc05e893-db56-4757-a003-ff4bd9bd6d88,1,Agent_1,O2,False,True,Agent_4,Agent_4,True,0,True,1.0
+dc05e893-db56-4757-a003-ff4bd9bd6d88,1,Agent_5,Lower Engine,False,True,Agent_4,Agent_4,True,0,True,1.0
+dc05e893-db56-4757-a003-ff4bd9bd6d88,1,Agent_6,Upper Engine,False,True,Agent_4,Agent_4,True,0,True,1.0
+dc05e893-db56-4757-a003-ff4bd9bd6d88,1,Agent_7,Security,False,True,Agent_4,Agent_4,True,0,True,1.0
+dc05e893-db56-4757-a003-ff4bd9bd6d88,1,Agent_8,Communications,False,True,Agent_4,Agent_4,True,0,True,1.0
+396bbf99-276d-487b-9ed7-e092843e947b,2,Agent_1,Reactor,False,True,Agent_3,Agent_3,True,0,True,0.5714285714285714
+396bbf99-276d-487b-9ed7-e092843e947b,2,Agent_2,Storage,False,True,Agent_5,Agent_3,False,0,True,0.5714285714285714
+396bbf99-276d-487b-9ed7-e092843e947b,2,Agent_4,Reactor,False,True,Agent_3,Agent_3,True,0,True,0.5714285714285714
+396bbf99-276d-487b-9ed7-e092843e947b,2,Agent_5,Shields,False,True,Agent_5,Agent_3,False,0,True,0.5714285714285714
+396bbf99-276d-487b-9ed7-e092843e947b,2,Agent_6,Cafeteria,False,True,Agent_3,Agent_3,True,0,True,0.5714285714285714
+396bbf99-276d-487b-9ed7-e092843e947b,2,Agent_7,Lower Engine,False,True,Agent_3,Agent_3,True,0,True,0.5714285714285714
+112f2d26-b9be-491e-bbc6-9095b749353d,2,Agent_2,Reactor,False,True,Agent_5,Agent_8,False,0,True,0.6666666666666666
+112f2d26-b9be-491e-bbc6-9095b749353d,2,Agent_3,Storage,False,True,Agent_8,Agent_8,True,0,True,0.6666666666666666
+112f2d26-b9be-491e-bbc6-9095b749353d,2,Agent_4,Storage,False,True,Agent_8,Agent_8,True,0,True,0.6666666666666666
+112f2d26-b9be-491e-bbc6-9095b749353d,2,Agent_5,Admin,False,True,Agent_8,Agent_8,True,0,True,0.6666666666666666
+112f2d26-b9be-491e-bbc6-9095b749353d,2,Agent_7,O2,False,True,Agent_8,Agent_8,True,0,True,0.6666666666666666
+112f2d26-b9be-491e-bbc6-9095b749353d,3,Agent_2,Reactor,False,True,Agent_5,Agent_5,True,0,True,1.0
+112f2d26-b9be-491e-bbc6-9095b749353d,3,Agent_3,Storage,False,True,Agent_5,Agent_5,True,0,True,1.0
+112f2d26-b9be-491e-bbc6-9095b749353d,3,Agent_4,Storage,False,True,Agent_5,Agent_5,True,0,True,1.0
+112f2d26-b9be-491e-bbc6-9095b749353d,3,Agent_7,O2,False,True,Agent_5,Agent_5,True,0,True,1.0
+112f2d26-b9be-491e-bbc6-9095b749353d,4,Agent_2,Reactor,False,True,Agent_5,Agent_5,True,0,True,0.5
+112f2d26-b9be-491e-bbc6-9095b749353d,4,Agent_3,Storage,False,True,Agent_8,Agent_5,False,0,True,0.5
+112f2d26-b9be-491e-bbc6-9095b749353d,4,Agent_4,Storage,False,True,Agent_8,Agent_5,False,0,True,0.5
+112f2d26-b9be-491e-bbc6-9095b749353d,4,Agent_7,O2,False,True,Agent_5,Agent_5,True,0,True,0.5
+112f2d26-b9be-491e-bbc6-9095b749353d,5,Agent_2,Reactor,False,True,Agent_4,Agent_5,False,0,True,0.75
+112f2d26-b9be-491e-bbc6-9095b749353d,5,Agent_3,Storage,False,True,Agent_5,Agent_5,True,0,True,0.75
+112f2d26-b9be-491e-bbc6-9095b749353d,5,Agent_4,Storage,False,True,Agent_5,Agent_5,True,0,True,0.75
+112f2d26-b9be-491e-bbc6-9095b749353d,5,Agent_7,O2,False,True,Agent_5,Agent_5,True,0,True,0.75
+bb2884fc-095d-4386-8520-52ec79fe7826,1,Agent_3,MedBay,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+bb2884fc-095d-4386-8520-52ec79fe7826,1,Agent_4,Reactor,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+bb2884fc-095d-4386-8520-52ec79fe7826,1,Agent_5,Security,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+bb2884fc-095d-4386-8520-52ec79fe7826,1,Agent_6,Storage,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+bb2884fc-095d-4386-8520-52ec79fe7826,1,Agent_7,Shields,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+bb2884fc-095d-4386-8520-52ec79fe7826,1,Agent_8,Cafeteria,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+bb2884fc-095d-4386-8520-52ec79fe7826,2,Agent_3,MedBay,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+bb2884fc-095d-4386-8520-52ec79fe7826,2,Agent_4,Reactor,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+bb2884fc-095d-4386-8520-52ec79fe7826,2,Agent_5,Security,False,True,Agent_6,Agent_2,False,0,True,0.8333333333333334
+bb2884fc-095d-4386-8520-52ec79fe7826,2,Agent_6,Cafeteria,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+bb2884fc-095d-4386-8520-52ec79fe7826,2,Agent_7,Shields,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+bb2884fc-095d-4386-8520-52ec79fe7826,2,Agent_8,Storage,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+8fc889a6-cb37-4129-a5bd-b9c5c1e90463,1,Agent_2,MedBay,False,True,Agent_5,Agent_5,True,0,True,0.7142857142857143
+8fc889a6-cb37-4129-a5bd-b9c5c1e90463,1,Agent_3,Upper Engine,False,True,Agent_5,Agent_5,True,0,True,0.7142857142857143
+8fc889a6-cb37-4129-a5bd-b9c5c1e90463,1,Agent_4,O2,False,True,Agent_5,Agent_5,True,0,True,0.7142857142857143
+8fc889a6-cb37-4129-a5bd-b9c5c1e90463,1,Agent_6,Storage,False,True,Agent_4,Agent_5,False,0,True,0.7142857142857143
+8fc889a6-cb37-4129-a5bd-b9c5c1e90463,1,Agent_7,Storage,False,True,Agent_5,Agent_5,True,0,True,0.7142857142857143
+8fc889a6-cb37-4129-a5bd-b9c5c1e90463,1,Agent_8,Admin,False,True,Agent_5,Agent_5,True,0,True,0.7142857142857143
+6b8bfdd0-2535-4408-a63c-86da33f3c860,2,Agent_1,Cafeteria,False,True,Agent_6,Agent_6,True,0,True,0.2857142857142857
+6b8bfdd0-2535-4408-a63c-86da33f3c860,2,Agent_2,Admin,False,True,Agent_6,Agent_6,True,0,True,0.2857142857142857
+6b8bfdd0-2535-4408-a63c-86da33f3c860,2,Agent_4,Admin,False,True,Agent_1,Agent_6,False,0,True,0.2857142857142857
+6b8bfdd0-2535-4408-a63c-86da33f3c860,2,Agent_5,Electrical,False,True,Agent_2,Agent_6,False,0,True,0.2857142857142857
+6b8bfdd0-2535-4408-a63c-86da33f3c860,2,Agent_7,Communications,False,True,Agent_4,Agent_6,False,0,True,0.2857142857142857
+6b8bfdd0-2535-4408-a63c-86da33f3c860,2,Agent_8,Electrical,False,True,Agent_4,Agent_6,False,0,True,0.2857142857142857
+6b8bfdd0-2535-4408-a63c-86da33f3c860,3,Agent_4,Admin,False,True,Agent_2,Agent_2,True,0,True,0.5
+6b8bfdd0-2535-4408-a63c-86da33f3c860,3,Agent_5,Electrical,False,True,Agent_6,Agent_2,False,0,True,0.5
+6b8bfdd0-2535-4408-a63c-86da33f3c860,3,Agent_7,Communications,False,True,Agent_2,Agent_2,True,0,True,0.5
+6b8bfdd0-2535-4408-a63c-86da33f3c860,4,Agent_4,Admin,False,True,Agent_7,Agent_7,True,0,True,0.3333333333333333
+6b8bfdd0-2535-4408-a63c-86da33f3c860,4,Agent_5,Electrical,False,True,Agent_2,Agent_7,False,0,True,0.3333333333333333
+6b8bfdd0-2535-4408-a63c-86da33f3c860,5,Agent_4,Admin,False,True,Agent_7,Agent_7,True,0,True,0.5
+6b8bfdd0-2535-4408-a63c-86da33f3c860,5,Agent_5,Electrical,False,True,Agent_6,Agent_7,False,0,True,0.5
+dc847a1a-74a0-4a53-b5f3-1edcd3c0fac7,1,Agent_1,Storage,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+dc847a1a-74a0-4a53-b5f3-1edcd3c0fac7,1,Agent_2,Electrical,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+dc847a1a-74a0-4a53-b5f3-1edcd3c0fac7,1,Agent_3,Upper Engine,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+dc847a1a-74a0-4a53-b5f3-1edcd3c0fac7,1,Agent_5,O2,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+dc847a1a-74a0-4a53-b5f3-1edcd3c0fac7,1,Agent_7,Communications,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+dc847a1a-74a0-4a53-b5f3-1edcd3c0fac7,1,Agent_8,Electrical,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,1,Agent_1,Cafeteria,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,1,Agent_4,Lower Engine,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,1,Agent_5,Electrical,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,1,Agent_6,Cafeteria,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,1,Agent_7,Shields,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,1,Agent_8,Shields,False,True,Agent_2,Agent_2,True,0,True,0.8571428571428571
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,2,Agent_1,Admin,False,True,Agent_2,Agent_2,True,0,True,1.0
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,2,Agent_4,Lower Engine,False,True,Agent_2,Agent_2,True,0,True,1.0
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,2,Agent_5,Electrical,False,True,Agent_2,Agent_2,True,0,True,1.0
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,2,Agent_6,Admin,False,True,Agent_2,Agent_2,True,0,True,1.0
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,2,Agent_7,Shields,False,True,Agent_2,Agent_2,True,0,True,1.0
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,2,Agent_8,Navigation,False,True,Agent_2,Agent_2,True,0,True,1.0
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,3,Agent_1,Cafeteria,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,3,Agent_4,Lower Engine,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,3,Agent_5,Electrical,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,3,Agent_6,Cafeteria,False,True,Agent_1,Agent_2,False,0,True,0.8333333333333334
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,3,Agent_7,Shields,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,3,Agent_8,Shields,False,True,Agent_2,Agent_2,True,0,True,0.8333333333333334
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,4,Agent_1,Admin,False,True,No Ejection,No Ejection,True,0,True,0.6666666666666666
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,4,Agent_4,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,0.6666666666666666
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,4,Agent_5,Electrical,False,True,No Ejection,No Ejection,True,0,True,0.6666666666666666
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,4,Agent_6,Admin,False,True,Agent_1,No Ejection,False,0,True,0.6666666666666666
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,4,Agent_7,Shields,False,True,No Ejection,No Ejection,True,0,True,0.6666666666666666
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,4,Agent_8,Navigation,False,True,Agent_1,No Ejection,False,0,True,0.6666666666666666
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_1,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,0.5
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_4,Lower Engine,False,True,No Ejection,No Ejection,True,0,True,0.5
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_5,Electrical,False,True,Agent_1,No Ejection,False,0,True,0.5
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_6,Cafeteria,False,True,Agent_1,No Ejection,False,0,True,0.5
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_7,Shields,False,True,No Ejection,No Ejection,True,0,True,0.5
+47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_8,O2,False,True,Agent_1,No Ejection,False,0,True,0.5

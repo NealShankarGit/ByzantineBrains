@@ -168,6 +168,11 @@ class HonestAgent:
         self.agents_state[self.name]["trust_scores"] = self.trust_scores.copy()
 
     def vote_for_ejection(self):
+        alive_targets = [
+            a for a in self.agents_state
+            if not self.agents_state[a].get("killed", False) and a != self.name
+        ]
+
         messages = []
         for agent, data in self.agents_state.items():
             msgs = data.get("messages", [])
@@ -176,11 +181,15 @@ class HonestAgent:
         history = "\n".join(messages[-5:]) or "No messages."
 
         seen = self.agents_state[self.name].get("seen_history", [])
-        seen_lines = [f"{entry['room']}: {', '.join(entry['agents_seen']) or 'no one'}" for entry in seen[-3:]]
+        seen_lines = [
+            f"{entry['room']}: {', '.join(entry.get('agents_seen', [])) or 'no one'}"
+            for entry in seen[-3:]
+        ]
         seen_history_str = "\n".join(seen_lines) or "No perception data."
 
+        alive_str = ", ".join(alive_targets)
         prompt = f"""
-    You are voting independently based on your own perception and the recent behavior of all agents.
+    You are an honest agent in a deception-detection game.
 
     Recent messages:
     {history}
@@ -188,11 +197,19 @@ class HonestAgent:
     Your perception history:
     {seen_history_str}
 
-    Return ONE agent name (e.g., 'Agent_4') that you personally find most suspicious — or 'No Ejection' if no one stands out.
+    You must vote to eject one agent from the following ACTIVE agents:
+    {alive_str}
 
-    ONLY return the name. No explanation.
+    Only choose ONE name from this list, or say "No Ejection" if no one stands out.
+
+    ONLY return the agent name from the list above or "No Ejection". Do not explain.
     """
+
         response = llm(prompt)["choices"][0]["message"]["content"].strip().splitlines()[0]
+
+        if response not in alive_targets:
+            response = "No Ejection"
+
         return self.name, response
 
     def analyze_memory(self):

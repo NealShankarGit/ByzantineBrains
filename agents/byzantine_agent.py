@@ -134,7 +134,7 @@ class ByzantineAgent:
         current_room_agents = [agent for agent, info in full_state.items() if info["room"] == current_room]
         current_room_str = f"Current Room ({current_room}): {', '.join(current_room_agents)}"
 
-        agent_role = "Byzantine" if "byzantine" in self.name.lower() else "Honest"
+        agent_role = "Byzantine" if self.agents_state[self.name]["role"] == "byzantine" else "Honest"
 
         prompt = f"""
         You are {self.name}, a {agent_role} agent, currently in {current_room}.
@@ -174,6 +174,11 @@ class ByzantineAgent:
         return current_room
 
     def vote_for_ejection(self):
+        alive_targets = [
+            a for a in self.agents_state
+            if not self.agents_state[a].get("killed", False) and a != self.name
+        ]
+
         messages = []
         for agent, data in self.agents_state.items():
             msgs = data.get("messages", [])
@@ -182,25 +187,35 @@ class ByzantineAgent:
         history = "\n".join(messages[-5:]) or "No messages."
 
         seen = self.agents_state[self.name].get("seen_history", [])
-        seen_lines = [f"{entry['room']}: {', '.join(entry['agents_seen']) or 'no one'}" for entry in seen[-3:]]
+        seen_lines = [
+            f"{entry['room']}: {', '.join(entry.get('agents_seen', [])) or 'no one'}"
+            for entry in seen[-3:]
+        ]
         seen_history_str = "\n".join(seen_lines) or "No perception data."
 
+        alive_str = ", ".join(alive_targets)
         prompt = f"""
-        You are a byzantine agent voting independently based on the recent behavior of all agents.
+    You are a byzantine agent attempting to avoid suspicion in a deception-detection game.
 
-        Return ONE agent name (e.g., 'Agent_4') that you find threatening to uncovering your byzantine status — or 'No Ejection' if no one stands out.
+    Recent messages:
+    {history}
 
-        Recent messages:
-        {history}
-        
-        Your perception history:
-        {seen_history_str}
-        
-        Return ONE agent name (e.g., 'Agent_4') that you personally find most suspicious — or 'No Ejection' if no one stands out.
-        
-        ONLY return the name. No explanation.
-        """
+    Your perception history:
+    {seen_history_str}
+
+    You must vote to eject one agent from the following ACTIVE agents:
+    {alive_str}
+
+    Only choose ONE name from this list, or say "No Ejection" if no one stands out.
+
+    ONLY return the agent name from the list above or "No Ejection". Do not explain.
+    """
+
         response = llm(prompt)["choices"][0]["message"]["content"].strip().splitlines()[0]
+
+        if response not in alive_targets:
+            response = "No Ejection"
+
         return self.name, response
 
     def analyze_memory(self):
