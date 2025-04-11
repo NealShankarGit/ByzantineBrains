@@ -1,9 +1,11 @@
 from agents.agent_setup import create_agents
-from game.game_loop import run_game_round, finalize_log, rooms
+from game.game_loop import rooms
 from data.database import log_round_metadata
 import random
 
 NUM_ROUNDS = 5
+_current_game = {}
+
 
 def setup_game(game_id):
     agents, agents_state = create_agents(game_id)
@@ -23,4 +25,11 @@ def setup_game(game_id):
     alive = sum(1 for v in state.values() if not v["killed"])
     dead = sum(1 for v in state.values() if v["killed"])
     log_round_metadata(game_id, 0, alive, dead)
+
+    _current_game["state"] = state
+    _current_game["agents"] = agents
     return agents, agents_state, state
+
+
+def get_current_state():
+    return _current_game.get("agents", []), _current_game.get("state", {})

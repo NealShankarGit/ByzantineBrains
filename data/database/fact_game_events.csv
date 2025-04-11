@@ -414,3 +414,28 @@ dc847a1a-74a0-4a53-b5f3-1edcd3c0fac7,1,Agent_8,Electrical,False,True,Agent_6,Age
 47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_6,Cafeteria,False,True,Agent_1,No Ejection,False,0,True,0.5
 47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_7,Shields,False,True,No Ejection,No Ejection,True,0,True,0.5
 47ed9a24-3ebf-4e28-902b-ed0e3236fe9c,5,Agent_8,O2,False,True,Agent_1,No Ejection,False,0,True,0.5
+e1cce9d9-8c7e-46e7-b50d-3f87c002caae,1,Agent_2,Reactor,False,True,No Ejection,No Ejection,True,0,True,0.8571428571428571
+e1cce9d9-8c7e-46e7-b50d-3f87c002caae,1,Agent_3,Communications,False,True,No Ejection,No Ejection,True,0,True,0.8571428571428571
+e1cce9d9-8c7e-46e7-b50d-3f87c002caae,1,Agent_4,Shields,False,True,No Ejection,No Ejection,True,0,True,0.8571428571428571
+e1cce9d9-8c7e-46e7-b50d-3f87c002caae,1,Agent_5,Reactor,False,True,Agent_2,No Ejection,False,0,True,0.8571428571428571
+e1cce9d9-8c7e-46e7-b50d-3f87c002caae,1,Agent_6,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,0.8571428571428571
+e1cce9d9-8c7e-46e7-b50d-3f87c002caae,1,Agent_7,O2,False,True,No Ejection,No Ejection,True,0,True,0.8571428571428571
+e1cce9d9-8c7e-46e7-b50d-3f87c002caae,1,Agent_8,Weapons,False,True,No Ejection,No Ejection,True,0,True,0.8571428571428571
+7e185daa-1b49-49c0-9ff3-d442d3a73f7b,2,Agent_2,Lower Engine,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+7e185daa-1b49-49c0-9ff3-d442d3a73f7b,2,Agent_3,Navigation,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+7e185daa-1b49-49c0-9ff3-d442d3a73f7b,2,Agent_4,Reactor,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+7e185daa-1b49-49c0-9ff3-d442d3a73f7b,2,Agent_5,O2,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+7e185daa-1b49-49c0-9ff3-d442d3a73f7b,2,Agent_7,Weapons,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+7e185daa-1b49-49c0-9ff3-d442d3a73f7b,2,Agent_8,Lower Engine,False,True,Agent_6,Agent_6,True,0,True,0.8571428571428571
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,1,Agent_1,Cafeteria,False,True,No Ejection,No Ejection,True,0,True,0.7142857142857143
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,1,Agent_2,Admin,False,True,No Ejection,No Ejection,True,0,True,0.7142857142857143
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,1,Agent_3,Shields,False,True,No Ejection,No Ejection,True,0,True,0.7142857142857143
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,1,Agent_4,MedBay,False,True,No Ejection,No Ejection,True,0,True,0.7142857142857143
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,1,Agent_5,O2,False,True,Agent_2,No Ejection,False,0,True,0.7142857142857143
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,1,Agent_6,Admin,False,True,Agent_2,No Ejection,False,0,True,0.7142857142857143
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,1,Agent_7,Upper Engine,False,True,No Ejection,No Ejection,True,0,True,0.7142857142857143
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,2,Agent_2,Admin,False,True,Agent_7,Agent_7,True,0,True,0.8333333333333334
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,2,Agent_3,Shields,False,True,Agent_7,Agent_7,True,0,True,0.8333333333333334
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,2,Agent_4,MedBay,False,True,Agent_7,Agent_7,True,0,True,0.8333333333333334
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,2,Agent_5,O2,False,True,Agent_7,Agent_7,True,0,True,0.8333333333333334
+29dbcc0f-50e5-4d50-8a39-d0aa752bd24b,2,Agent_6,Cafeteria,False,True,Agent_7,Agent_7,True,0,True,0.8333333333333334

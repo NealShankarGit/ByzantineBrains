@@ -70,7 +70,7 @@ def show_ship_map(state, agents):
         if occupants:
             print(f"{room}: {' '.join(occupants)}")
 
-def movement_phase(state, agents, agents_state):
+def movement_phase(state, agents, agents_state, stream):
     for agent in agents:
         if state[agent.name]["killed"]:
             continue
@@ -84,18 +84,22 @@ def movement_phase(state, agents, agents_state):
                 state[target_name]["killed"] = True
                 state[target_name]["room_body"] = current
                 print(f"{agent.name} killed {target_name} in {current}")
+                yield from stream.flush()
             move_dest = agent.choose_room(current, rooms[current], state)
             if move_dest in rooms[current]:
                 state[agent.name]["room"] = move_dest
                 print(f"{agent.name} moved from {current} to {move_dest}")
+                yield from stream.flush()
             else:
                 print(f"{agent.name} stayed in {current}")
+                yield from stream.flush()
         else:
             state[agent.name]["room"] = dest
             if dest == current:
                 print(f"{agent.name} stayed in {current}")
             else:
                 print(f"{agent.name} moved from {current} to {dest}")
+            yield from stream.flush()
 
         seen = [a for a in state if state[a]["room"] == dest and a != agent.name and not state[a]["killed"]]
         room = state[agent.name]["room"]
@@ -111,6 +115,7 @@ def movement_phase(state, agents, agents_state):
                 agent_msg = f"I just found the body of {seen_bodies[0]} in {room}! Reporting it now!"
                 print(f"{agent.name} reports: {agent_msg}")
                 agents_state[agent.name]["messages"].append(agent_msg)
+                yield from stream.flush()
 
         if agent.__class__.__name__ == "HonestAgent":
             if not state[agent.name]["task_done"]:
@@ -118,18 +123,18 @@ def movement_phase(state, agents, agents_state):
                     if state[agent.name]["doing_task"]:
                         state[agent.name]["task_done"] = True
                         print(f"{agent.name} completed their task in {state[agent.name]['room']}.")
+                        yield from stream.flush()
                     else:
                         state[agent.name]["doing_task"] = True
                         print(f"{agent.name} started task in {state[agent.name]['room']}.")
+                        yield from stream.flush()
                 else:
                     state[agent.name]["doing_task"] = False
 
-import sys
-
-def run_game_round(game_id, step, state, agents, agents_state):
-    movement_phase(state, agents, agents_state)
+def run_game_round(game_id, step, state, agents, agents_state, stream):
+    yield from movement_phase(state, agents, agents_state, stream)
     show_ship_map(state, agents)
-    sys.stdout.flush()
+    yield from stream.flush()
 
     alive = sum(1 for a in state.values() if not a["killed"])
     dead = sum(1 for a in state.values() if a["killed"])
@@ -146,14 +151,14 @@ def run_game_round(game_id, step, state, agents, agents_state):
 
     if any_body_seen:
         print(f"\n--- DISCUSSION (Round {step}) ---")
-        sys.stdout.flush()
+        yield from stream.flush()
         messages = {}
         for agent in agents:
             if state[agent.name]["killed"]:
                 continue
             history = state[agent.name].get("perception", [])
             message = agent.simulate_message(history)
-            sys.stdout.flush()
+            yield from stream.flush()
             if message:
                 messages[agent.name] = message
                 log_reflection(game_id, step, agent.name, message)
@@ -162,12 +167,12 @@ def run_game_round(game_id, step, state, agents, agents_state):
             if state[agent.name]["killed"]:
                 continue
             response = agent.respond_to_message(messages, state[agent.name].get("perception", []))
-            sys.stdout.flush()
+            yield from stream.flush()
             if response:
                 log_reflection(game_id, step, agent.name, response)
 
         print(f"\n--- VOTING (Round {step}) ---")
-        sys.stdout.flush()
+        yield from stream.flush()
         votes = {}
         for agent in agents:
             if state[agent.name]["killed"]:
@@ -176,7 +181,7 @@ def run_game_round(game_id, step, state, agents, agents_state):
             votes[voter] = target
             log_vote(game_id, step, voter, target)
             print(f"{voter} voted to eject {target}")
-            sys.stdout.flush()
+            yield from stream.flush()
 
         vote_counts = {}
         for target in votes.values():
@@ -190,13 +195,14 @@ def run_game_round(game_id, step, state, agents, agents_state):
             print(f"\nEjected: {ejected}")
             print(f"Vote {'correct' if correct else 'incorrect'} — Role was: {agents_state[ejected]['role']}")
             print(f"Consensus Agreement Level: {agreement_level:.2f}")
-            sys.stdout.flush()
+            yield from stream.flush()
             state[ejected]["killed"] = True
+            state[ejected]["ejected"] = True
         else:
             correct = False
             print(f"\nNo one was ejected.")
             print(f"Consensus Agreement Level: {agreement_level:.2f}")
-            sys.stdout.flush()
+            yield from stream.flush()
 
         log_consensus(game_id, step, f"Eject {ejected}", agreement_level)
 
@@ -218,3 +224,53 @@ def finalize_log():
     with open(log_file_path, "w") as f:
         json.dump(log_data, f, indent=2)
     print(f"Simulation results saved to {log_file_path}")
+
+def generate_map_html(state=None, agents=None):
+    mapping = {room: [] for room in rooms}
+    bodies = {room: [] for room in rooms}
+    if state and agents:
+        for agent, info in state.items():
+            if not info.get("killed", False):
+                agent_obj = next((a for a in agents if a.name == agent), None)
+                mapping[info["room"]].append(f"{agent_obj.color}{agent}" if agent_obj else agent)
+            elif info.get("room_body"):
+                agent_obj = next((a for a in agents if a.name == agent), None)
+                color = agent_obj.color if agent_obj else ""
+                bodies[info["room_body"]].append(f"💀{color}{agent}")
+
+    def fmt(room):
+        entries = mapping.get(room, []) + bodies.get(room, [])
+        return f"<strong>{room}</strong>" if not entries else f"<strong>{room}</strong>: {' '.join(entries)}"
+
+    return f"""
+    <div>
+        <p>{fmt('Upper Engine')} | {fmt('Cafeteria')} | {fmt('Weapons')}</p>
+        <p>{fmt('Reactor')} | {fmt('Security')} | {fmt('MedBay')} | {fmt('O2')} | {fmt('Navigation')}</p>
+        <p>{fmt('Lower Engine')} | {fmt('Electrical')} | {fmt('Storage')} | {fmt('Admin')} | {fmt('Shields')}</p>
+        <p>{fmt('Communications')}</p>
+    </div>
+    """
+
+def generate_agent_status_html(state, agents):
+    rows = []
+    for agent in agents:
+        info = state.get(agent.name, {})
+        color = agent.color
+        model = agent.model_name
+
+        if info.get("ejected"):
+            status = "Ejected"
+        elif info.get("killed"):
+            status = "Killed"
+        else:
+            status = "Alive"
+
+        rows.append(f"<tr><td>{color}{agent.name}</td><td>{model}</td><td>{status}</td></tr>")
+
+    return f"""
+    <h3>Agent Status</h3>
+    <table border="1" style='color: #0f0; border-collapse: collapse; width: 100%;'>
+        <tr><th>Name</th><th>Model</th><th>Status</th></tr>
+        {''.join(rows)}
+    </table>
+    """

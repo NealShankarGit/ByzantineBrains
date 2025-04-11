@@ -3,24 +3,75 @@
 <head>
     <title>ByzantineBrains</title>
     <style>
-        body { background: #000; color: #0f0; font-family: monospace; padding: 2em; }
-        button { font-size: 1.1em; padding: 0.5em 1em; margin-bottom: 1em; }
-        #output { border: 1px solid #0f0; padding: 1em; max-height: 80vh; overflow-y: auto; white-space: pre-wrap; }
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            display: flex;
+            gap: 2em;
+            padding: 1em;
+        }
+        #map-container {
+            width: 40%;
+            border: 1px solid #0f0;
+            padding: 1em;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        #map-title {
+            font-weight: bold;
+            margin-bottom: 0.5em;
+            font-size: 1.2em;
+        }
+        #map {
+            margin-bottom: 1em;
+        }
+        #agent-status h3 {
+            margin-top: 0;
+        }
+        #agent-status table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #0f0;
+        }
+        #agent-status th, #agent-status td {
+            border: 1px solid #0f0;
+            padding: 4px 8px;
+            text-align: left;
+        }
+        #right {
+            flex: 1;
+        }
+        button {
+            font-size: 1.1em;
+            padding: 0.5em 1em;
+            margin-bottom: 1em;
+        }
+        #output {
+            border: 1px solid #0f0;
+            padding: 1em;
+            max-height: 80vh;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
-    <h1>ByzantineBrains Simulation</h1>
-    <button onclick="start()">▶ Run Simulation</button>
-    <div id="output"></div>
+    <div id="map-container">
+        <div id="map-title">Ship Map</div>
+        <div id="map">{{ map_html|safe }}</div>
+        <div id="agent-status"></div>
+    </div>
+    <div id="right">
+        <h1>ByzantineBrains Simulation</h1>
+        <button onclick="start()">▶ Run Simulation</button>
+        <div id="output"></div>
+    </div>
     <script>
         function start() {
             const out = document.getElementById("output");
             out.innerHTML = "";
             const source = new EventSource("/run");
-            source.onmessage = function(event) {
-                out.innerHTML += event.data + "\\n";
-                out.scrollTop = out.scrollHeight;
-            };
             source.onmessage = function(event) {
                 if (event.data === "[DONE]") {
                     source.close();
@@ -30,6 +81,15 @@
                 out.scrollTop = out.scrollHeight;
             };
         }
+
+        setInterval(() => {
+            fetch("/map")
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("map").innerHTML = data.map_html;
+                    document.getElementById("agent-status").innerHTML = data.agent_status;
+                });
+        }, 1000);
     </script>
 </body>
 </html>
